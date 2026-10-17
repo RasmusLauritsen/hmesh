@@ -172,12 +172,11 @@ Global options are listed by `hmesh --help`. Default request timeout is 20 secon
 ```bash
 go test -race ./...
 go vet ./...
-python3 -m unittest -v  # Original reference-client tests
 ```
 
 ### Release automation
 
-Pushing a semantic-version tag such as `v0.1.0` runs `.github/workflows/release.yml`: formatting, race-enabled Go tests, vet, and Python reference tests must pass before GoReleaser builds all six platform/architecture combinations and uploads archives plus `checksums.txt` to a GitHub Release. Release binaries report the tag's version through `hmesh --version`; ordinary source builds report a development version.
+Pushing a semantic-version tag such as `v0.1.0` runs `.github/workflows/release.yml`: formatting, race-enabled Go tests, and vet must pass before GoReleaser builds all six platform/architecture combinations and uploads archives plus `checksums.txt` to a GitHub Release. Release binaries report the tag's version through `hmesh --version`; ordinary source builds report a development version.
 
 Release artifacts contain binaries and documentation, not router credentials, local config, cookies or live router output. Builds use `CGO_ENABLED=0` and do not contact a router or BWS. Cross-compilation does not establish that terminal/keyring behavior was runtime-tested on every target; the automated tests run on Linux. Publishing a prerelease tag such as `v0.2.0-rc.1` marks its GitHub release as a prerelease.
 
@@ -186,6 +185,6 @@ Release artifacts contain binaries and documentation, not router credentials, lo
 - [docs/observations.json](docs/observations.json): original anonymous/authenticated response shapes, without private values.
 - [docs/write-exploration.json](docs/write-exploration.json): additional field/type observations for write exploration.
 - [docs/dhcp-test-result.json](docs/dhcp-test-result.json): historical synthetic reservation test and cleanup receipt.
-- `router_api.py`, `inspect_api.py`, `test_router_api.py`: original BWS-based Python discovery tools, retained as protocol references. Their default URL is the custom discovery address `https://192.168.50.1`, **not** Huawei's factory default. They are not required by the Go CLI. `python3 inspect_api.py` performs a fresh inventory of that installation and replaces `docs/observations.json`; that historical inventory script explicitly disables TLS verification.
+- [tools/reference/](tools/reference/): original BWS-based Python discovery scripts, retained for protocol research and optional inventory regeneration. Their default URL is the custom discovery address `https://192.168.50.1`, **not** Huawei's factory default. They are not required by the Go CLI or CI. Duplicate Python tests have been retired; the Go tests retain the vendor-JavaScript SCRAM fixture and protocol coverage. See the reference tools README for usage and TLS warnings.
 
 TLS verification is enabled by default in the Go CLI. Obtain trusted certificates through a trusted local channel; `--insecure` disables server identity verification and should only be used knowingly on a trusted LAN. The firmware API is undocumented; writes can disrupt clients. Protect router administration from untrusted networks.

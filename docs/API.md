@@ -70,7 +70,7 @@ Verified using the `admin` account and the BWS `router_password` credential. No 
 
    The response includes `rsan`, `rsae`, and `level`. RSA encryption is not needed for the documented GET requests. Retain the session cookie and use it for subsequent GETs.
 
-The Python reference client `router_api.py` implements this flow in `Router.login`. It does not implement the legacy non-SCRAM login path, password decryption, or configuration writes. The Go CLI separately implements SCRAM authentication and guarded DHCP writes; see the root README for its command surface.
+The historical Python reference client [`tools/reference/router_api.py`](../tools/reference/router_api.py) implements this flow in `Router.login`. It does not implement the legacy non-SCRAM login path, password decryption, or configuration writes. The Go CLI separately implements SCRAM authentication and guarded DHCP writes; see the root README for its command surface.
 
 ## Verified GET catalog
 
@@ -173,7 +173,7 @@ These returned **HTTP 404 both before and after authentication** for the exact r
 | `qos` | `/api/app/qos` |
 | `rebootplan` | `/api/system/rebootplan` |
 
-These remain in the Python reference client's allowlist to reproduce the observed outcome; they are not recommended monitoring endpoints and are not exposed as Go CLI commands. The catalog's client aliases refer to `router_api.py`, not Go command names.
+These remain in the Python reference client's allowlist to reproduce the observed outcome; they are not recommended monitoring endpoints and are not exposed as Go CLI commands. The catalog's client aliases refer to `tools/reference/router_api.py`, not Go command names.
 
 ## Scope, evidence, and untested areas
 

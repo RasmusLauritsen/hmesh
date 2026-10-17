@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only Huawei Mesh 3 API client. Secrets and sessions stay in memory."""
+"""Historical read-only API reference. Use hmesh for normal router management."""
 import argparse
 import hashlib
 import hmac
