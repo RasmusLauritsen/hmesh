@@ -72,6 +72,7 @@ Stdin/files accept one nonempty line, preserving spaces and removing a trailing 
 hmesh status
 hmesh devices list --output json
 hmesh mesh topology --output json
+hmesh dhcp reservations list
 hmesh dhcp reservations list --output json
 hmesh dns show --output json
 hmesh port-forward list --output json
@@ -80,6 +81,16 @@ hmesh port-forward list --output json
 `dns show` is read-only and selects WAN IPv4, DHCP-advertised, and WAN IPv6 DNS fields; it does not inspect IPv6 LAN DHCP/RA DNS. `port-forward list` returns mapping records, **not** the separate protocol/port definitions. DNS and port-forward writes are not implemented.
 
 ### DHCP reservations
+
+Reservation lists use a human-readable table by default, sorted numerically by IPv4 address. Internal IDs are hidden; empty lists display `No DHCP reservations found.` The menu's list view uses the same format. Use `--output json` to retain the full JSON array, including IDs, in router response order.
+
+```text
+IP ADDRESS       MAC ADDRESS        ENABLED
+192.168.3.100    02:00:00:00:00:42   yes
+192.168.3.101    02:00:00:00:00:43   no
+
+2 reservations
+```
 
 ```bash
 # Preview only: authenticates and reads, but sends no configuration POST.
@@ -116,7 +127,7 @@ Go authentication (including stdin password input), status/device/reservation re
 
 Use explicit subcommands, `--non-interactive`, `--output json`, and `--yes` for approved writes. Invoking `hmesh` without a subcommand opens a one-action menu and exits after the selected operation; without a terminal it fails rather than hanging. Password input via stdin disables other CLI prompts.
 
-- Successful data-producing subcommands emit one JSON value on stdout. `text` output is indented JSON; `json` is compact JSON. Interactive Quit succeeds without output. Help/version are human-readable text, not part of the JSON data contract.
+- With `--output json`, successful data-producing subcommands emit one compact JSON value on stdout. Default `text` output uses a table for DHCP reservation lists and indented JSON for other operations. Interactive Quit succeeds without output. Help/version are human-readable text, not part of the JSON data contract.
 - Errors: stderr only; JSON error envelope when `--output json` is selected. No success output on an uncertain write; inspect readback via `dhcp reservations list`.
 - Mutation results include `operation`, `action`, `reservation` (when present), `dry_run`, and `verified`. Plans have `dry_run: true`, `verified: false`; successful applies have `dry_run: false`, `verified: true`. `unchanged` means the desired state was observed without a write, not that a live lease was checked.
 - Response fields containing `password`, `cookie`, `csrf` or `presharedkey` (case-insensitive), and exact `pwd`/`wepkey` fields, are filtered recursively. This is not comprehensive secret detection. Device names, MAC/IP addresses, serial numbers and configuration are still private data—do not publish raw output casually.

@@ -108,6 +108,15 @@ func TestCLIEndToEnd(t *testing.T) {
 	if created["verified"] != true || posts != 1 {
 		t.Fatal("create failed")
 	}
+	listed := run("dhcp", "reservations", "list").([]any)
+	if len(listed) != 1 || listed[0].(map[string]any)["ID"] != "reservation.1." {
+		t.Fatal("JSON reservation list changed")
+	}
+	var tableOut, tableErr bytes.Buffer
+	tableCode := Run([]string{"--config", configFile, "--router", s.URL, "--insecure", "--password-stdin", "--non-interactive", "dhcp", "reservations", "list"}, strings.NewReader("fake-password\n"), &tableOut, &tableErr)
+	if tableCode != 0 || tableErr.Len() != 0 || !strings.Contains(tableOut.String(), "IP ADDRESS") || !strings.Contains(tableOut.String(), "1 reservation\n") || strings.Contains(tableOut.String(), "reservation.1.") {
+		t.Fatalf("default reservation list was not a table: exit=%d out=%q err=%q", tableCode, tableOut.String(), tableErr.String())
+	}
 	noOp := run("dhcp", "reservations", "create", "--mac", "02:00:00:00:00:42", "--ip", "192.168.3.100", "--yes").(map[string]any)
 	if noOp["action"] != "unchanged" || posts != 1 {
 		t.Fatal("idempotent create wrote")
