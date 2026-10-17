@@ -152,7 +152,7 @@ Use explicit subcommands, `--non-interactive`, `--output json`, and `--yes` for 
 - With `--output json`, successful data-producing subcommands emit one compact JSON value on stdout. Default `text` output uses a table for DHCP reservation lists and indented JSON for other operations. Interactive Quit succeeds without output. Help/version are human-readable text, not part of the JSON data contract.
 - Errors: stderr only; JSON error envelope when `--output json` is selected. No success output on an uncertain write; inspect readback via `dhcp reservations list`.
 - Mutation results include `operation`, `action`, `reservation` (when present), `dry_run`, and `verified`. Plans have `dry_run: true`, `verified: false`; successful applies have `dry_run: false`, `verified: true`. `unchanged` means the desired state was observed without a write, not that a live lease was checked.
-- Response fields containing `password`, `cookie`, `csrf` or `presharedkey` (case-insensitive), and exact `pwd`/`wepkey` fields, are filtered recursively. This is not comprehensive secret detection. Device names, MAC/IP addresses, serial numbers and configuration are still private data—do not publish raw output casually.
+- Known password, cookie, CSRF, token, session-ID and authorization fields are filtered recursively (case-insensitive). This is not comprehensive secret detection. Device names, MAC/IP addresses, serial numbers and configuration are still private data—do not publish raw output casually.
 
 | Exit code | Meaning |
 |---|---|
@@ -172,7 +172,21 @@ Global options are listed by `hmesh --help`. Default request timeout is 20 secon
 ```bash
 go test -race ./...
 go vet ./...
+python3 -m unittest discover -s tools/reference -p 'test_*.py'
 ```
+
+### Secret scanning
+
+Gitleaks scans pushes and pull requests, including all fetched Git history.
+Install Gitleaks **8.30.1** and enable the local staged-content hook before committing:
+
+```bash
+git config --local core.hooksPath .githooks
+```
+
+If you already have hooks configured, integrate rather than replace them.
+See [SECURITY.md](SECURITY.md) for manual scans, detector limitations, safe router
+output handling, and what to rotate if a secret leaks.
 
 ### Release automation
 
@@ -185,6 +199,6 @@ Release artifacts contain binaries and documentation, not router credentials, lo
 - [docs/observations.json](docs/observations.json): original anonymous/authenticated response shapes, without private values.
 - [docs/write-exploration.json](docs/write-exploration.json): additional field/type observations for write exploration.
 - [docs/dhcp-test-result.json](docs/dhcp-test-result.json): historical synthetic reservation test and cleanup receipt.
-- [tools/reference/](tools/reference/): original BWS-based Python discovery scripts, retained for protocol research and optional inventory regeneration. Their default URL is the custom discovery address `https://192.168.50.1`, **not** Huawei's factory default. They are not required by the Go CLI or CI. Duplicate Python tests have been retired; the Go tests retain the vendor-JavaScript SCRAM fixture and protocol coverage. See the reference tools README for usage and TLS warnings.
+- [tools/reference/](tools/reference/): original BWS-based Python discovery scripts, retained for protocol research and optional inventory regeneration. Their default URL is the custom discovery address `https://192.168.50.1`, **not** Huawei's factory default. They are not required by the Go CLI or release builds; CI runs offline output-safety tests only. Duplicate protocol tests have been retired; the Go tests retain the vendor-JavaScript SCRAM fixture and protocol coverage. See the reference tools README for usage and TLS warnings.
 
 TLS verification is enabled by default in the Go CLI. Obtain trusted certificates through a trusted local channel; `--insecure` disables server identity verification and should only be used knowingly on a trusted LAN. The firmware API is undocumented; writes can disrupt clients. Protect router administration from untrusted networks.

@@ -160,6 +160,23 @@ func TestRedaction(t *testing.T) {
 	}
 }
 
+func TestRedactionNestedCredentialFields(t *testing.T) {
+	keys := []string{"PASSWORD", "passwd", "pwd", "WepKey", "WpaPreSharedKey", "Set-Cookie", "CSRF_TOKEN", "SessionID_R3", "session_id", "session-id", "Authorization", "Proxy-Authorization", "access_token", "refreshToken", "ID-TOKEN"}
+	for _, key := range keys {
+		t.Run(key, func(t *testing.T) {
+			inner := map[string]any{key: "sensitive-fixture", "IPAddress": "192.0.2.2", "enabled": true, "count": 2, "optional": nil}
+			input := map[string]any{"nested": []any{map[string]any{"deeper": inner}, "ordinary text"}}
+			want := map[string]any{"nested": []any{map[string]any{"deeper": map[string]any{"IPAddress": "192.0.2.2", "enabled": true, "count": 2, "optional": nil}}, "ordinary text"}}
+			if got := Redact(input); !reflect.DeepEqual(got, want) {
+				t.Fatal("credential field retained or ordinary data altered")
+			}
+			if inner[key] != "sensitive-fixture" {
+				t.Fatal("redaction mutated input")
+			}
+		})
+	}
+}
+
 type fakeDHCP struct {
 	t      *testing.T
 	items  []map[string]any

@@ -24,3 +24,8 @@ jobs:
         run: go vet ./...
       - name: Build hmesh
         run: go build -o bin/hmesh .
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reference output safety tests (offline)
+        run: python3 -m unittest discover -s tools/reference -p 'test_*.py'

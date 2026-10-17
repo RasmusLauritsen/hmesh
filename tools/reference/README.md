@@ -2,8 +2,8 @@
 
 These scripts were used to discover the router API before the Go CLI existed.
 They are optional protocol-research tools, not a supported alternative CLI or a
-dependency of `hmesh`, CI, or release builds. Duplicate Python unit tests have
-been retired; the Go tests retain the vendor-JavaScript SCRAM test vector and
+dependency of `hmesh` or release builds. CI runs offline output-safety tests only;
+duplicate protocol tests have been retired. The Go tests retain the vendor-JavaScript SCRAM test vector and
 test authentication, request handling, and guarded reservation operations.
 
 ## Requirements and scope
@@ -15,12 +15,12 @@ test authentication, request handling, and guarded reservation operations.
 - Their default URL is the discovery installation's custom address,
   `https://192.168.50.1`, **not** Huawei's factory-default `192.168.3.1`.
 - Retrieval requests and authentication only; configuration POSTs are blocked.
-  Passwords and session cookies remain in process memory.
+  Session cookies are kept in memory; raw response output can expose credentials.
 
 ## Usage from the repository root
 
 ```bash
-# Show a response's field/types without private values:
+# Show a response's field/types without private values (the default):
 python3 tools/reference/router_api.py HostInfo --insecure --schema
 
 # Override the reference client's router address:
@@ -39,8 +39,9 @@ it blindly on another network or expect it to use `hmesh` configuration.
 
 For the reference client, `--insecure` explicitly disables certificate
 verification; omit it when the router certificate is trusted. The reference
-client's response output without `--schema` can contain private network details;
-some endpoints expose credential-named fields. Do not publish raw responses.
+client defaults to schema-only output; `--schema` remains an explicit alias.
+`--unsafe-raw` prints unfiltered responses and warns on stderr: output can contain
+passwords, tokens and private network details. Do not publish or commit it.
 The inventory script records field/type shapes and numeric result codes, not
 private response values.
 

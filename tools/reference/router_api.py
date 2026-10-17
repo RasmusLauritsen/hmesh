@@ -9,6 +9,7 @@ import re
 import secrets
 import ssl
 import subprocess
+import sys
 import urllib.error
 import urllib.request
 
@@ -177,12 +178,18 @@ def main():
     parser.add_argument('endpoint', choices=sorted(ENDPOINTS))
     parser.add_argument('--base', default='https://192.168.50.1')
     parser.add_argument('--insecure', action='store_true', help='Trust the local self-signed TLS certificate')
-    parser.add_argument('--schema', action='store_true', help='Print types only, not private values')
+    output = parser.add_mutually_exclusive_group()
+    output.add_argument('--schema', action='store_true', help='Print types only (the default)')
+    output.add_argument('--unsafe-raw', action='store_true',
+                        help='Print unfiltered responses, potentially including credentials')
     args = parser.parse_args()
+    if args.unsafe_raw:
+        print('WARNING: raw router output may contain passwords, session tokens and private network data. '
+              'Do not publish or commit it.', file=sys.stderr)
     router = Router(args.base, args.insecure)
     router.login(bws_password())
     value = router.get(args.endpoint)
-    print(json.dumps(schema(value) if args.schema else value, indent=2))
+    print(json.dumps(value if args.unsafe_raw else schema(value), indent=2))
 
 
 if __name__ == '__main__':

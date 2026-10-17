@@ -1,0 +1,61 @@
+title = "hmesh secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "router-credential-literal"
+description = "Literal router or Wi-Fi password assignment"
+regex = '''(?i)["']?(?:HMESH_PASSWORD|router_password|password|passwd|pwd|WpaPreSharedKey|WepKey)["']?\s*[:=]\s*["']([^"'\r\n]+)["']'''
+secretGroup = 1
+
+[[rules.allowlists]]
+description = "Documented placeholder, never a real password"
+regexTarget = "secret"
+regexes = ['''^<[^<>\r\n]+>$''']
+
+[[rules.allowlists]]
+description = "Exact synthetic fixtures in existing tests only"
+condition = "AND"
+paths = ['''^(?:internal/cli/cli_test\.go|internal/router/client_test\.go|test_router_api\.py)$''']
+regexTarget = "secret"
+regexes = ['''^(?:forbidden|secret|never-save-me|fake-test-password|fake-one|fake-two)$''']
+
+[[rules.allowlists]]
+description = "Exact offline reference-output fixture"
+condition = "AND"
+paths = ['''^tools/reference/test_output\.py$''']
+regexTarget = "secret"
+regexes = ['''^private-fixture$''']
+
+[[rules]]
+id = "router-password-env"
+description = "Unquoted router password environment assignment"
+regex = '''(?im)\bHMESH_PASSWORD\s*=\s*([^\s"'`$;<>]+)'''
+secretGroup = 1
+
+[[rules]]
+id = "router-session-literal"
+description = "Literal session cookie or CSRF pair"
+regex = '''(?i)["']?(?:SessionID_R3|csrf_param|csrf_token)["']?\s*[:=]\s*["']?([a-z0-9_+/=.-]+)'''
+secretGroup = 1
+
+[[rules.allowlists]]
+description = "Exact synthetic authentication fixtures, not whole test files"
+condition = "AND"
+paths = ['''^(?:internal/router/client_test\.go|internal/cli/integration_test\.go|test_router_api\.py)$''']
+regexTarget = "secret"
+regexes = ['''^(?:p1|p2|t1|t2|p|t|never-output|secret|param-one|param-two|token-one|token-two)$''']
+
+[[rules]]
+id = "router-csrf-html"
+description = "Captured router CSRF meta tag"
+regex = '''(?i)<meta\s+name=["']csrf_(?:param|token)["']\s+content=["']([^"'\r\n]+)["']'''
+secretGroup = 1
+
+[[rules.allowlists]]
+description = "Exact fake login pages in existing tests only"
+condition = "AND"
+paths = ['''^(?:internal/router/client_test\.go|internal/cli/integration_test\.go|test_router_api\.py)$''']
+regexTarget = "secret"
+regexes = ['''^(?:p1|t1|p|t|param-one|token-one)$''']

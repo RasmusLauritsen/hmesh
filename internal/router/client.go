@@ -282,7 +282,9 @@ func Redact(v any) any {
 		out := map[string]any{}
 		for k, v := range x {
 			lower := strings.ToLower(k)
-			if strings.Contains(lower, "password") || strings.Contains(lower, "cookie") || strings.Contains(lower, "csrf") || strings.Contains(lower, "presharedkey") || lower == "pwd" || lower == "wepkey" {
+			compact := strings.NewReplacer("_", "", "-", "").Replace(lower)
+			if strings.Contains(lower, "password") || strings.Contains(lower, "cookie") || strings.Contains(lower, "csrf") || strings.Contains(lower, "presharedkey") || lower == "pwd" || lower == "wepkey" ||
+				strings.Contains(compact, "token") || strings.Contains(compact, "sessionid") || compact == "authorization" || compact == "proxyauthorization" || compact == "passwd" {
 				continue
 			}
 			out[k] = Redact(v)
