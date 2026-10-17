@@ -19,7 +19,8 @@ import (
 	"golang.org/x/term"
 )
 
-const Version = "0.1.0-dev"
+// Version is set from the release tag through Go linker flags.
+var Version = "0.1.0-dev"
 
 type app struct {
 	in                                                                       io.Reader

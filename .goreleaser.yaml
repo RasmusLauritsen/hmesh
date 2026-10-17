@@ -1,0 +1,46 @@
+version: 2
+
+project_name: hmesh
+
+builds:
+  - id: hmesh
+    main: .
+    binary: hmesh
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+      - -mod=readonly
+    ldflags:
+      - -s -w -X github.com/RasmusLauritsen/huawei-mesh3-cli/internal/cli.Version={{ .Version }}
+
+archives:
+  - id: hmesh
+    formats:
+      - tar.gz
+    name_template: "hmesh_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    files:
+      - README.md
+      - docs/**
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+changelog:
+  sort: asc
+
+release:
+  name_template: "hmesh v{{ .Version }}"
+  prerelease: auto

@@ -6,7 +6,28 @@ Built from locally verified API discovery on a two-unit Huawei Mesh 3 installati
 
 ## Install
 
-Requires **Go 1.26 or newer**. This repository is private; cloning/installing requires GitHub access.
+### Download a release
+
+Prebuilt archives are published on [GitHub Releases](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases) for **Linux, macOS, and Windows**, each in **AMD64** and **ARM64** variants. This is a private repository: sign in with an account that has access. No Go installation or BWS installation is required to run a release binary unless you choose the optional BWS password provider.
+
+Choose `amd64` for Intel/AMD 64-bit processors or `arm64` for Apple Silicon/64-bit ARM systems. macOS archives use the Go platform name `darwin`. ARM32/ARMv7 builds are not included. Linux/macOS archives are `.tar.gz`; Windows archives are `.zip` and contain `hmesh.exe`. Each archive also includes this README and the API documentation. Binaries are not Developer ID/Authenticode signed; your OS may display a trust warning.
+
+Example using an authenticated GitHub CLI on Linux AMD64 (substitute the desired version and platform):
+
+```bash
+gh release download v0.1.0 --repo RasmusLauritsen/huawei-mesh3-cli \
+  --pattern hmesh_0.1.0_linux_amd64.tar.gz --pattern checksums.txt
+# Verify the downloaded archive against its published SHA-256 checksum:
+grep ' hmesh_0.1.0_linux_amd64.tar.gz$' checksums.txt | sha256sum --check
+tar -xzf hmesh_0.1.0_linux_amd64.tar.gz
+./hmesh --version
+```
+
+Verify the checksum for your chosen archive before running it (`shasum -a 256` on macOS, or `Get-FileHash -Algorithm SHA256` in PowerShell). Checksums detect corruption; they are not an independent publisher signature.
+
+### Build from source
+
+Requires **Go 1.26 or newer**. This repository is private; cloning requires GitHub access.
 
 ```bash
 git clone https://github.com/RasmusLauritsen/huawei-mesh3-cli.git
@@ -153,6 +174,12 @@ go test -race ./...
 go vet ./...
 python3 -m unittest -v  # Original reference-client tests
 ```
+
+### Release automation
+
+Pushing a semantic-version tag such as `v0.1.0` runs `.github/workflows/release.yml`: formatting, race-enabled Go tests, vet, and Python reference tests must pass before GoReleaser builds all six platform/architecture combinations and uploads archives plus `checksums.txt` to a GitHub Release. Release binaries report the tag's version through `hmesh --version`; ordinary source builds report a development version.
+
+Release artifacts contain binaries and documentation, not router credentials, local config, cookies or live router output. Builds use `CGO_ENABLED=0` and do not contact a router or BWS. Cross-compilation does not establish that terminal/keyring behavior was runtime-tested on every target; the automated tests run on Linux. Publishing a prerelease tag such as `v0.2.0-rc.1` marks its GitHub release as a prerelease.
 
 - [docs/API.md](docs/API.md): verified read APIs and Huawei-modified SCRAM-SHA256 authentication.
 - [docs/WRITE_API.md](docs/WRITE_API.md): write-flow evidence, limitations, and historical DHCP create/delete test.
