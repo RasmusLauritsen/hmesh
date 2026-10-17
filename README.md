@@ -72,6 +72,7 @@ Stdin/files accept one nonempty line, preserving spaces and removing a trailing 
 hmesh status
 hmesh devices list --output json
 hmesh mesh topology --output json
+hmesh dhcp list
 hmesh dhcp reservations list
 hmesh dhcp reservations list --output json
 hmesh dns show --output json
@@ -82,7 +83,7 @@ hmesh port-forward list --output json
 
 ### DHCP reservations
 
-Reservation lists use a human-readable table by default, sorted numerically by IPv4 address. Internal IDs are hidden; empty lists display `No DHCP reservations found.` The menu's list view uses the same format. Use `--output json` to retain the full JSON array, including IDs, in router response order.
+`hmesh dhcp list` is shorthand for `hmesh dhcp reservations list`; both accept the same global options. Reservation lists use a human-readable table by default, sorted numerically by IPv4 address. Internal IDs are hidden; empty lists display `No DHCP reservations found.` The menu's list view uses the same format. Use `--output json` to retain the full JSON array, including IDs, in router response order.
 
 ```text
 IP ADDRESS       MAC ADDRESS        ENABLED

@@ -208,6 +208,7 @@ func (a *app) command() *cobra.Command {
 	dns.AddCommand(&cobra.Command{Use: "show", Short: "Show selected WAN, DHCP and IPv6 WAN DNS fields", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error { return a.dns() }})
 	root.AddCommand(dns)
 	dhcp := &cobra.Command{Use: "dhcp", Short: "Manage DHCP reservations"}
+	dhcp.AddCommand(&cobra.Command{Use: "list", Short: "List DHCP reservations (shorthand for reservations list)", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error { return a.read("reservations") }})
 	reservations := &cobra.Command{Use: "reservations", Short: "List, create, update or delete reservations"}
 	reservations.AddCommand(&cobra.Command{Use: "list", Short: "List DHCP reservations", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error { return a.read("reservations") }})
 	for _, operation := range []string{"create", "update", "delete"} {
