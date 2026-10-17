@@ -4,3 +4,7 @@ __pycache__/
 *.har
 *cookies*
 *session*.json
+bin/
+dist/
+coverage.out
+hmesh

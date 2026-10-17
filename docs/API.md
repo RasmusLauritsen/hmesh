@@ -6,6 +6,8 @@ For configuration write flows, see [WRITE_API.md](WRITE_API.md). DHCP reservatio
 
 Paths are relative to `https://192.168.50.1`. Paths and JSON field names are case-sensitive. Data is JSON: some endpoints return objects, others arrays, including empty arrays. There is no universal `data` response envelope. Do not treat missing fields as zero or empty lists as unsupported endpoints.
 
+That address is specific to the installation used for discovery. Huawei's factory-default address, and the Go `hmesh` default, is `https://192.168.3.1`; use `--router` for a custom address.
+
 The router web UI sends:
 
 ```http
@@ -68,7 +70,7 @@ Verified using the `admin` account and the BWS `router_password` credential. No 
 
    The response includes `rsan`, `rsae`, and `level`. RSA encryption is not needed for the documented GET requests. Retain the session cookie and use it for subsequent GETs.
 
-The client implements this flow in `Router.login`. It does not implement the legacy non-SCRAM login path, password decryption, or configuration writes.
+The Python reference client `router_api.py` implements this flow in `Router.login`. It does not implement the legacy non-SCRAM login path, password decryption, or configuration writes. The Go CLI separately implements SCRAM authentication and guarded DHCP writes; see the root README for its command surface.
 
 ## Verified GET catalog
 
@@ -171,7 +173,7 @@ These returned **HTTP 404 both before and after authentication** for the exact r
 | `qos` | `/api/app/qos` |
 | `rebootplan` | `/api/system/rebootplan` |
 
-These remain in the client allowlist to reproduce the observed outcome; they are not recommended monitoring endpoints.
+These remain in the Python reference client's allowlist to reproduce the observed outcome; they are not recommended monitoring endpoints and are not exposed as Go CLI commands. The catalog's client aliases refer to `router_api.py`, not Go command names.
 
 ## Scope, evidence, and untested areas
 
@@ -186,6 +188,6 @@ Discovery used the router-served `/js/api.js` alias map, `/js/util.js` transport
 
 The endpoint map is shared across product variants; listing an alias does **not** prove support on Mesh 3. Success here establishes observed retrieval behavior, not all input parameters, exhaustive enum meanings, or complete documentation of hidden/mobile/cloud APIs. JSON shapes are snapshots; firmware, configuration and client types may change them.
 
-Not invoked: Wi-Fi scans (`wifiscan`), speed tests, pairing, active diagnostic commands, exports/backups, password decryption, firmware-check/download/start commands, logout, reset, reboot, configuration POSTs, cloud/app APIs, or requests directly to the secondary unit. No parameter fuzzing was performed. Primary-unit aggregation provides the documented view of both units.
+During the initial read-only discovery, not invoked: Wi-Fi scans (`wifiscan`), speed tests, pairing, active diagnostic commands, exports/backups, password decryption, firmware-check/download/start commands, logout, reset, reboot, configuration POSTs, cloud/app APIs, or requests directly to the secondary unit. A later explicitly approved DHCP create/delete test did send configuration POSTs, as documented in [WRITE_API.md](WRITE_API.md). No parameter fuzzing was performed. Primary-unit aggregation provides the documented view of both units.
 
 There is no verified CPU, RAM, temperature, per-link mesh signal, or per-link backhaul-rate API in this catalog. Do not label unrelated fields as those metrics. Anonymous 200 outcomes are observations only, not a completed security assessment; some public responses include device/firmware metadata and potentially sensitive fields. Keep management access LAN-restricted.

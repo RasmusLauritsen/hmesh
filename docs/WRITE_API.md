@@ -1,6 +1,6 @@
 # Exploring configuration writes
 
-**Status: DHCP reservation creation and deletion are live-tested; updates and other writes remain source-derived and untested.** Explicitly authorized configuration POSTs created and subsequently removed a synthetic test reservation. The existing Python client still blocks every non-authentication POST; the tests used separate one-shot requests. Examples below are documentation, not instructions to apply a change without review.
+**Status: DHCP reservation creation and deletion are live-tested; updates and other writes remain source-derived and untested on hardware.** Explicitly authorized configuration POSTs created and subsequently removed a synthetic test reservation. The Python reference client still blocks every non-authentication POST; those tests used separate one-shot requests. The Go `hmesh` CLI now implements guarded DHCP create/update/delete with mock tests; its writes have not been live-tested. DNS and forwarding writes are not implemented in the CLI. Examples below document the protocol, not instructions to apply a change without review.
 
 This extends [API.md](API.md) for firmware `2.0.0.512`. Additional authenticated GETs confirmed the application/port data model and existing reservation/DNS field types; see [write-exploration.json](write-exploration.json). Values, identifiers, addresses and credentials were not retained in that file.
 
@@ -18,7 +18,7 @@ Collection operations use a **top-level** `action`, not an action nested inside 
 }
 ```
 
-For collection updates use `"action": "update"` with the exact existing `ID`. The source also implements `"delete"`; deletion is not part of the proposed initial tests. Successful configuration writes are checked with **`errcode == 0`**, unlike login's `err == 0`. Check field-specific errors and GET the affected resources again before continuing.
+For collection updates use `"action": "update"` with the exact existing `ID`. The source also implements `"delete"`; DHCP deletion was subsequently verified during cleanup of the approved test. Successful configuration writes are checked with **`errcode == 0`**, unlike login's `err == 0`. Check field-specific errors and GET the affected resources again before continuing.
 
 Singleton settings such as `lan_server` instead use `{"data": <settings object>, "csrf": <current pair>}` with **no `action`**. These are not HTTP PATCH endpoints: don't assume a minimal field-only payload is supported.
 
