@@ -2,6 +2,12 @@
 
 An unofficial CLI for inspecting a Huawei Mesh 3 router and managing DHCP reservations. Use the interactive menu or explicit commands for scripts and automation.
 
+<a href="https://consumer.huawei.com/en/routers/wifi-mesh3/">
+  <img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/routers/wifi-mesh3/imgs/homesec/huawei-wifi-mesh-3-design-3.jpg" alt="HUAWEI WiFi Mesh 3 router" width="480">
+</a>
+
+*HUAWEI WiFi Mesh 3. Product image: [Huawei](https://consumer.huawei.com/en/routers/wifi-mesh3/).*
+
 Based on API discovery on a two-unit installation running firmware `2.0.0.512`, HarmonyOS `2.0.0`, hardware `VER.A`. Other firmware/models may behave differently. Not affiliated with or supported by Huawei.
 
 ## Install
