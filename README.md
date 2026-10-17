@@ -6,9 +6,39 @@ Based on API discovery on a two-unit installation running firmware `2.0.0.512`, 
 
 ## Install
 
-Download an archive from [GitHub Releases](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases), extract it, and put `hmesh` (`hmesh.exe` on Windows) on your PATH. The repository is private; sign in with an account that has access.
+### One-command install (Linux and macOS)
 
-Releases support Linux, macOS (`darwin`), and Windows on AMD64 (Intel/AMD) and ARM64 (including Apple Silicon). Verify the archive against the release's `checksums.txt` before running it. Binaries are unsigned, so your OS may display a trust warning.
+Install the latest release to `~/.local/bin`, with no sudo required:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/RasmusLauritsen/huawei-mesh3-cli/main/install.sh | bash
+```
+
+This executes a downloaded script; [review it first](install.sh) if preferred. The installer detects AMD64/ARM64, verifies the release checksum, and replaces any existing `hmesh` in the install directory. Set `HMESH_INSTALL_DIR` to choose another directory. Checksums detect corruption, not a compromised publisher.
+
+The installer uses authenticated GitHub CLI downloads when available; otherwise it uses public HTTPS downloads. Windows users can download a release below.
+
+### Download a release
+
+Open the [latest release](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases/latest) and download the archive for your system.
+
+| System | Archive suffix |
+|---|---|
+| Linux, Intel/AMD | `linux_amd64.tar.gz` |
+| Linux, ARM64 | `linux_arm64.tar.gz` |
+| macOS, Intel | `darwin_amd64.tar.gz` |
+| macOS, Apple Silicon | `darwin_arm64.tar.gz` |
+| Windows, Intel/AMD | `windows_amd64.zip` |
+| Windows, ARM64 | `windows_arm64.zip` |
+
+Or use an authenticated [GitHub CLI](https://cli.github.com/) to download the latest release without specifying a version. For example, on Linux Intel/AMD:
+
+```bash
+gh release download --repo RasmusLauritsen/huawei-mesh3-cli \
+  --pattern 'hmesh_*_linux_amd64.tar.gz' --pattern checksums.txt
+```
+
+Replace `linux_amd64.tar.gz` with the suffix for your system. Verify the archive against `checksums.txt`, extract it, and put `hmesh` (`hmesh.exe` on Windows) on your PATH. Binaries are unsigned, so your OS may display a trust warning.
 
 ## Connect
 

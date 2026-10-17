@@ -4,7 +4,7 @@ For CLI usage and API references, see [README.md](README.md).
 
 ## Build from source
 
-Requires Go 1.26 or newer and access to the private GitHub repository.
+Requires Go 1.26 or newer.
 
 ```bash
 git clone https://github.com/RasmusLauritsen/huawei-mesh3-cli.git
@@ -28,6 +28,7 @@ Add `$HOME/.local/bin` to PATH if necessary. Plain `go install .` uses the modul
 go test -race ./...
 go vet ./...
 python3 -m unittest discover -s tools/reference -p 'test_*.py'
+python3 -m unittest discover -s tools -p 'test_install.py'
 ```
 
 Automated tests run on Linux. Cross-compilation does not establish that terminal and OS-keyring behavior works on every target.
