@@ -1,0 +1,3980 @@
+{
+  "observed_at": "2026-10-17T19:38:56.730239+00:00",
+  "base_url": "https://192.168.50.1",
+  "endpoints": {
+    "routerstatus": {
+      "method": "GET",
+      "path": "/api/system/routerstatus",
+      "anonymous": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "isrepeater": {
+              "type": "boolean"
+            },
+            "guide": {
+              "type": "boolean"
+            },
+            "issupportsmartapp": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "issupportsmartapp": {
+              "type": "boolean"
+            },
+            "guide": {
+              "type": "boolean"
+            },
+            "isrepeater": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "deviceinfo": {
+      "method": "GET",
+      "path": "/api/system/deviceinfo",
+      "anonymous": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "uuid": {
+              "type": "string"
+            },
+            "MacFilterCapacity": {
+              "type": "integer"
+            },
+            "ManufacturerId": {
+              "type": "string"
+            },
+            "other": {
+              "type": "object",
+              "properties": {
+                "pkg_mst_mac": {
+                  "type": "string"
+                },
+                "pkg_slv_mac_list": {
+                  "type": "array",
+                  "items_observed": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mac": {
+                          "type": "string"
+                        },
+                        "base_mac": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "IsNeedSalt": {
+                  "type": "boolean"
+                },
+                "guide": {
+                  "type": "boolean"
+                },
+                "MpsGuide": {
+                  "type": "boolean"
+                },
+                "FirstLogin": {
+                  "type": "integer"
+                }
+              }
+            },
+            "NtwkCapScore": {
+              "type": "integer"
+            },
+            "RouterType": {
+              "type": "string"
+            },
+            "custinfo": {
+              "type": "object",
+              "properties": {
+                "CustDeviceType": {
+                  "type": "string"
+                },
+                "CustDeviceName": {
+                  "type": "string"
+                },
+                "CustDeviceBand": {
+                  "type": "integer"
+                },
+                "CustZHFriendlyName": {
+                  "type": "string"
+                },
+                "CustENFriendlyName": {
+                  "type": "string"
+                }
+              }
+            },
+            "EmuiVersion": {
+              "type": "string"
+            },
+            "csrf_param": {
+              "type": "string"
+            },
+            "csrf_token": {
+              "type": "string"
+            },
+            "HardwareVersion": {
+              "type": "string"
+            },
+            "modcap": {
+              "type": "object",
+              "properties": {
+                "isSupportZhSSID": {
+                  "type": "integer"
+                },
+                "isSupportNextTimeUp": {
+                  "type": "integer"
+                },
+                "isSupportWlanTimeSwitchEnhance": {
+                  "type": "integer"
+                },
+                "isSupportGuestExtendRestTime": {
+                  "type": "integer"
+                },
+                "isSupportDiagnose2G": {
+                  "type": "integer"
+                },
+                "isSupportQueryAndSetChannel": {
+                  "type": "integer"
+                },
+                "isSupportMaxHisRate": {
+                  "type": "integer"
+                },
+                "isSupportNewDeviceAdd": {
+                  "type": "integer"
+                },
+                "isSupportQosNewConfig": {
+                  "type": "integer"
+                },
+                "isSupportFreeControl": {
+                  "type": "integer"
+                },
+                "isSupportHilinkMess": {
+                  "type": "integer"
+                },
+                "isSupportHilinkCap": {
+                  "type": "integer"
+                },
+                "isSupportWifiDbho": {
+                  "type": "integer"
+                },
+                "isSupportNFC": {
+                  "type": "integer"
+                },
+                "isSupport80211AX": {
+                  "type": "integer"
+                },
+                "iswifi5Compat": {
+                  "type": "integer"
+                },
+                "isSupportGuideOptimize": {
+                  "type": "integer"
+                },
+                "isSupportWpa3": {
+                  "type": "integer"
+                },
+                "isSupportHissidOpt": {
+                  "type": "integer"
+                },
+                "isSupportHybrid": {
+                  "type": "integer"
+                },
+                "isSupportDelMpsDevice": {
+                  "type": "integer"
+                },
+                "isSupportWifiMps": {
+                  "type": "integer"
+                },
+                "isSupportHilinkOpt": {
+                  "type": "integer"
+                },
+                "isSupportNtwkCapCompare": {
+                  "type": "integer"
+                },
+                "isSupportWlanFilterEnhance": {
+                  "type": "integer"
+                },
+                "isSupportEthBrdgConfig": {
+                  "type": "integer"
+                },
+                "isSupportSubMaskConfig": {
+                  "type": "integer"
+                },
+                "isSupportRepeaterConfig": {
+                  "type": "integer"
+                },
+                "isSupportBackhaul": {
+                  "type": "integer"
+                },
+                "isSupportPowerKey": {
+                  "type": "integer"
+                },
+                "support_iptv": {
+                  "type": "integer"
+                },
+                "support_urlflt": {
+                  "type": "integer"
+                },
+                "support_macflt": {
+                  "type": "integer"
+                },
+                "support_testwifiencrypt": {
+                  "type": "integer"
+                },
+                "support_elink": {
+                  "type": "integer"
+                },
+                "support_andlink": {
+                  "type": "integer"
+                },
+                "support_wolink": {
+                  "type": "integer"
+                },
+                "support_telecom_pd": {
+                  "type": "integer"
+                },
+                "support_router_custom": {
+                  "type": "integer"
+                },
+                "support_test_guide": {
+                  "type": "integer"
+                },
+                "support_xlink_sn": {
+                  "type": "integer"
+                },
+                "support_power_in_wifi_guide": {
+                  "type": "integer"
+                },
+                "support_zjct_custom": {
+                  "type": "integer"
+                },
+                "support_andlink_v2": {
+                  "type": "integer"
+                },
+                "support_guide_start_login": {
+                  "type": "integer"
+                },
+                "support_cloud_mac_filter": {
+                  "type": "integer"
+                },
+                "support_html_custom_app": {
+                  "type": "integer"
+                },
+                "support_wlan_instance_custom": {
+                  "type": "integer"
+                },
+                "support_guide_ssid": {
+                  "type": "integer"
+                },
+                "support_ipv6_enable": {
+                  "type": "integer"
+                },
+                "isSupportRepeater": {
+                  "type": "integer"
+                },
+                "isNotSupportGuest5G": {
+                  "type": "integer"
+                }
+              }
+            },
+            "UpTime": {
+              "type": "integer"
+            },
+            "SmartDevInfo": {
+              "type": "object",
+              "properties": {
+                "prodId": {
+                  "type": "string"
+                }
+              }
+            },
+            "devcap": {
+              "type": "object",
+              "properties": {
+                "RebootTime": {
+                  "type": "integer"
+                },
+                "Area": {
+                  "type": "integer"
+                },
+                "HardwareCapability": {
+                  "type": "object",
+                  "properties": {
+                    "7": {
+                      "type": "integer"
+                    },
+                    "8": {
+                      "type": "integer"
+                    },
+                    "9": {
+                      "type": "integer"
+                    },
+                    "10": {
+                      "type": "integer"
+                    },
+                    "11": {
+                      "type": "integer"
+                    },
+                    "2": {
+                      "type": "integer"
+                    },
+                    "3": {
+                      "type": "integer"
+                    },
+                    "0": {
+                      "type": "integer"
+                    },
+                    "1": {
+                      "type": "integer"
+                    },
+                    "5": {
+                      "type": "integer"
+                    },
+                    "4": {
+                      "type": "integer"
+                    },
+                    "6": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "GuestNetwork": {
+                  "type": "integer"
+                },
+                "SupportAPP": {
+                  "type": "boolean"
+                },
+                "PowerSave": {
+                  "type": "integer"
+                },
+                "Vendor": {
+                  "type": "string"
+                },
+                "USB": {
+                  "type": "integer"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "SoftwareCapability": {
+                  "type": "object",
+                  "properties": {
+                    "77": {
+                      "type": "integer"
+                    },
+                    "87": {
+                      "type": "integer"
+                    },
+                    "78": {
+                      "type": "integer"
+                    },
+                    "88": {
+                      "type": "integer"
+                    },
+                    "79": {
+                      "type": "integer"
+                    },
+                    "90": {
+                      "type": "integer"
+                    },
+                    "91": {
+                      "type": "integer"
+                    },
+                    "11": {
+                      "type": "integer"
+                    },
+                    "12": {
+                      "type": "integer"
+                    },
+                    "0": {
+                      "type": "integer"
+                    },
+                    "13": {
+                      "type": "integer"
+                    },
+                    "14": {
+                      "type": "integer"
+                    },
+                    "95": {
+                      "type": "integer"
+                    },
+                    "15": {
+                      "type": "integer"
+                    },
+                    "16": {
+                      "type": "integer"
+                    },
+                    "97": {
+                      "type": "integer"
+                    },
+                    "17": {
+                      "type": "integer"
+                    },
+                    "98": {
+                      "type": "integer"
+                    },
+                    "18": {
+                      "type": "integer"
+                    },
+                    "99": {
+                      "type": "integer"
+                    },
+                    "19": {
+                      "type": "integer"
+                    },
+                    "20": {
+                      "type": "integer"
+                    },
+                    "21": {
+                      "type": "integer"
+                    },
+                    "23": {
+                      "type": "integer"
+                    },
+                    "24": {
+                      "type": "integer"
+                    },
+                    "105": {
+                      "type": "integer"
+                    },
+                    "26": {
+                      "type": "integer"
+                    },
+                    "10": {
+                      "type": "integer"
+                    },
+                    "107": {
+                      "type": "integer"
+                    },
+                    "28": {
+                      "type": "integer"
+                    },
+                    "29": {
+                      "type": "integer"
+                    },
+                    "30": {
+                      "type": "integer"
+                    },
+                    "31": {
+                      "type": "integer"
+                    },
+                    "32": {
+                      "type": "integer"
+                    },
+                    "33": {
+                      "type": "integer"
+                    },
+                    "34": {
+                      "type": "integer"
+                    },
+                    "36": {
+                      "type": "integer"
+                    },
+                    "37": {
+                      "type": "integer"
+                    },
+                    "38": {
+                      "type": "integer"
+                    },
+                    "39": {
+                      "type": "integer"
+                    },
+                    "120": {
+                      "type": "integer"
+                    },
+                    "42": {
+                      "type": "integer"
+                    },
+                    "44": {
+                      "type": "integer"
+                    },
+                    "45": {
+                      "type": "integer"
+                    },
+                    "47": {
+                      "type": "integer"
+                    },
+                    "4": {
+                      "type": "integer"
+                    },
+                    "48": {
+                      "type": "integer"
+                    },
+                    "49": {
+                      "type": "integer"
+                    },
+                    "50": {
+                      "type": "integer"
+                    },
+                    "51": {
+                      "type": "integer"
+                    },
+                    "52": {
+                      "type": "integer"
+                    },
+                    "116": {
+                      "type": "integer"
+                    },
+                    "113": {
+                      "type": "integer"
+                    },
+                    "54": {
+                      "type": "integer"
+                    },
+                    "110": {
+                      "type": "integer"
+                    },
+                    "55": {
+                      "type": "integer"
+                    },
+                    "9": {
+                      "type": "integer"
+                    },
+                    "56": {
+                      "type": "integer"
+                    },
+                    "3": {
+                      "type": "integer"
+                    },
+                    "57": {
+                      "type": "integer"
+                    },
+                    "7": {
+                      "type": "integer"
+                    },
+                    "58": {
+                      "type": "integer"
+                    },
+                    "1": {
+                      "type": "integer"
+                    },
+                    "59": {
+                      "type": "integer"
+                    },
+                    "41": {
+                      "type": "integer"
+                    },
+                    "61": {
+                      "type": "integer"
+                    },
+                    "27": {
+                      "type": "integer"
+                    },
+                    "25": {
+                      "type": "integer"
+                    },
+                    "2": {
+                      "type": "integer"
+                    },
+                    "63": {
+                      "type": "integer"
+                    },
+                    "119": {
+                      "type": "integer"
+                    },
+                    "64": {
+                      "type": "integer"
+                    },
+                    "109": {
+                      "type": "integer"
+                    },
+                    "65": {
+                      "type": "integer"
+                    },
+                    "8": {
+                      "type": "integer"
+                    },
+                    "66": {
+                      "type": "integer"
+                    },
+                    "6": {
+                      "type": "integer"
+                    },
+                    "67": {
+                      "type": "integer"
+                    },
+                    "106": {
+                      "type": "integer"
+                    },
+                    "68": {
+                      "type": "integer"
+                    },
+                    "5": {
+                      "type": "integer"
+                    },
+                    "69": {
+                      "type": "integer"
+                    },
+                    "102": {
+                      "type": "integer"
+                    },
+                    "71": {
+                      "type": "integer"
+                    },
+                    "123": {
+                      "type": "integer"
+                    },
+                    "72": {
+                      "type": "integer"
+                    },
+                    "80": {
+                      "type": "integer"
+                    },
+                    "73": {
+                      "type": "integer"
+                    },
+                    "81": {
+                      "type": "integer"
+                    },
+                    "74": {
+                      "type": "integer"
+                    },
+                    "82": {
+                      "type": "integer"
+                    },
+                    "75": {
+                      "type": "integer"
+                    },
+                    "83": {
+                      "type": "integer"
+                    },
+                    "76": {
+                      "type": "integer"
+                    },
+                    "86": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "WifiAreaCode": {
+                  "type": "string"
+                },
+                "WIFI": {
+                  "type": "integer"
+                }
+              }
+            },
+            "SerialNumber": {
+              "type": "string"
+            },
+            "SkuType": {
+              "type": "integer"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            },
+            "ManufacturerOUI": {
+              "type": "string"
+            },
+            "DeviceName": {
+              "type": "string"
+            },
+            "UpgradeTime": {
+              "type": "integer"
+            },
+            "FriendlyName": {
+              "type": "string"
+            },
+            "DeviceIconType": {
+              "type": "string"
+            },
+            "SNHashType": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "HarmonyOSVersion": {
+              "type": "string"
+            },
+            "modcap": {
+              "type": "object",
+              "properties": {
+                "isSupportRepeater": {
+                  "type": "integer"
+                },
+                "isNotSupportGuest5G": {
+                  "type": "integer"
+                },
+                "isSupportZhSSID": {
+                  "type": "integer"
+                },
+                "isSupportNextTimeUp": {
+                  "type": "integer"
+                },
+                "isSupportWlanTimeSwitchEnhance": {
+                  "type": "integer"
+                },
+                "isSupportGuestExtendRestTime": {
+                  "type": "integer"
+                },
+                "isSupportDiagnose2G": {
+                  "type": "integer"
+                },
+                "isSupportQueryAndSetChannel": {
+                  "type": "integer"
+                },
+                "isSupportMaxHisRate": {
+                  "type": "integer"
+                },
+                "isSupportNewDeviceAdd": {
+                  "type": "integer"
+                },
+                "isSupportQosNewConfig": {
+                  "type": "integer"
+                },
+                "isSupportFreeControl": {
+                  "type": "integer"
+                },
+                "isSupportHilinkMess": {
+                  "type": "integer"
+                },
+                "isSupportHilinkCap": {
+                  "type": "integer"
+                },
+                "isSupportWifiDbho": {
+                  "type": "integer"
+                },
+                "isSupportNFC": {
+                  "type": "integer"
+                },
+                "isSupport80211AX": {
+                  "type": "integer"
+                },
+                "iswifi5Compat": {
+                  "type": "integer"
+                },
+                "isSupportGuideOptimize": {
+                  "type": "integer"
+                },
+                "isSupportWpa3": {
+                  "type": "integer"
+                },
+                "isSupportHissidOpt": {
+                  "type": "integer"
+                },
+                "isSupportHybrid": {
+                  "type": "integer"
+                },
+                "isSupportDelMpsDevice": {
+                  "type": "integer"
+                },
+                "isSupportSubMaskConfig": {
+                  "type": "integer"
+                },
+                "isSupportWifiMps": {
+                  "type": "integer"
+                },
+                "isSupportHilinkOpt": {
+                  "type": "integer"
+                },
+                "isSupportNtwkCapCompare": {
+                  "type": "integer"
+                },
+                "isSupportWlanFilterEnhance": {
+                  "type": "integer"
+                },
+                "isSupportRepeaterConfig": {
+                  "type": "integer"
+                },
+                "isSupportEthBrdgConfig": {
+                  "type": "integer"
+                },
+                "isSupportPowerKey": {
+                  "type": "integer"
+                },
+                "isSupportBackhaul": {
+                  "type": "integer"
+                },
+                "support_test_guide": {
+                  "type": "integer"
+                },
+                "support_xlink_sn": {
+                  "type": "integer"
+                },
+                "support_iptv": {
+                  "type": "integer"
+                },
+                "support_urlflt": {
+                  "type": "integer"
+                },
+                "support_macflt": {
+                  "type": "integer"
+                },
+                "support_testwifiencrypt": {
+                  "type": "integer"
+                },
+                "support_elink": {
+                  "type": "integer"
+                },
+                "support_andlink": {
+                  "type": "integer"
+                },
+                "support_wolink": {
+                  "type": "integer"
+                },
+                "support_telecom_pd": {
+                  "type": "integer"
+                },
+                "support_router_custom": {
+                  "type": "integer"
+                },
+                "support_andlink_v2": {
+                  "type": "integer"
+                },
+                "support_guide_start_login": {
+                  "type": "integer"
+                },
+                "support_power_in_wifi_guide": {
+                  "type": "integer"
+                },
+                "support_zjct_custom": {
+                  "type": "integer"
+                },
+                "support_cloud_mac_filter": {
+                  "type": "integer"
+                },
+                "support_html_custom_app": {
+                  "type": "integer"
+                },
+                "support_wlan_instance_custom": {
+                  "type": "integer"
+                },
+                "support_guide_ssid": {
+                  "type": "integer"
+                },
+                "support_ipv6_enable": {
+                  "type": "integer"
+                }
+              }
+            },
+            "ManufacturerId": {
+              "type": "string"
+            },
+            "UpgradeTime": {
+              "type": "integer"
+            },
+            "ManufacturerOUI": {
+              "type": "string"
+            },
+            "UpTime": {
+              "type": "integer"
+            },
+            "SNHashType": {
+              "type": "integer"
+            },
+            "RouterType": {
+              "type": "string"
+            },
+            "DeviceIconType": {
+              "type": "string"
+            },
+            "csrf_param": {
+              "type": "string"
+            },
+            "csrf_token": {
+              "type": "string"
+            },
+            "custinfo": {
+              "type": "object",
+              "properties": {
+                "CustDeviceType": {
+                  "type": "string"
+                },
+                "CustDeviceName": {
+                  "type": "string"
+                },
+                "CustDeviceBand": {
+                  "type": "integer"
+                },
+                "CustZHFriendlyName": {
+                  "type": "string"
+                },
+                "CustENFriendlyName": {
+                  "type": "string"
+                }
+              }
+            },
+            "SkuType": {
+              "type": "integer"
+            },
+            "devcap": {
+              "type": "object",
+              "properties": {
+                "RebootTime": {
+                  "type": "integer"
+                },
+                "HardwareCapability": {
+                  "type": "object",
+                  "properties": {
+                    "7": {
+                      "type": "integer"
+                    },
+                    "8": {
+                      "type": "integer"
+                    },
+                    "9": {
+                      "type": "integer"
+                    },
+                    "10": {
+                      "type": "integer"
+                    },
+                    "11": {
+                      "type": "integer"
+                    },
+                    "2": {
+                      "type": "integer"
+                    },
+                    "3": {
+                      "type": "integer"
+                    },
+                    "0": {
+                      "type": "integer"
+                    },
+                    "1": {
+                      "type": "integer"
+                    },
+                    "5": {
+                      "type": "integer"
+                    },
+                    "4": {
+                      "type": "integer"
+                    },
+                    "6": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "SupportAPP": {
+                  "type": "boolean"
+                },
+                "Area": {
+                  "type": "integer"
+                },
+                "GuestNetwork": {
+                  "type": "integer"
+                },
+                "USB": {
+                  "type": "integer"
+                },
+                "PowerSave": {
+                  "type": "integer"
+                },
+                "Vendor": {
+                  "type": "string"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "SoftwareCapability": {
+                  "type": "object",
+                  "properties": {
+                    "77": {
+                      "type": "integer"
+                    },
+                    "87": {
+                      "type": "integer"
+                    },
+                    "78": {
+                      "type": "integer"
+                    },
+                    "88": {
+                      "type": "integer"
+                    },
+                    "79": {
+                      "type": "integer"
+                    },
+                    "90": {
+                      "type": "integer"
+                    },
+                    "91": {
+                      "type": "integer"
+                    },
+                    "11": {
+                      "type": "integer"
+                    },
+                    "12": {
+                      "type": "integer"
+                    },
+                    "0": {
+                      "type": "integer"
+                    },
+                    "13": {
+                      "type": "integer"
+                    },
+                    "14": {
+                      "type": "integer"
+                    },
+                    "95": {
+                      "type": "integer"
+                    },
+                    "15": {
+                      "type": "integer"
+                    },
+                    "16": {
+                      "type": "integer"
+                    },
+                    "97": {
+                      "type": "integer"
+                    },
+                    "17": {
+                      "type": "integer"
+                    },
+                    "98": {
+                      "type": "integer"
+                    },
+                    "18": {
+                      "type": "integer"
+                    },
+                    "99": {
+                      "type": "integer"
+                    },
+                    "19": {
+                      "type": "integer"
+                    },
+                    "20": {
+                      "type": "integer"
+                    },
+                    "21": {
+                      "type": "integer"
+                    },
+                    "23": {
+                      "type": "integer"
+                    },
+                    "24": {
+                      "type": "integer"
+                    },
+                    "105": {
+                      "type": "integer"
+                    },
+                    "26": {
+                      "type": "integer"
+                    },
+                    "10": {
+                      "type": "integer"
+                    },
+                    "107": {
+                      "type": "integer"
+                    },
+                    "28": {
+                      "type": "integer"
+                    },
+                    "29": {
+                      "type": "integer"
+                    },
+                    "30": {
+                      "type": "integer"
+                    },
+                    "31": {
+                      "type": "integer"
+                    },
+                    "32": {
+                      "type": "integer"
+                    },
+                    "33": {
+                      "type": "integer"
+                    },
+                    "34": {
+                      "type": "integer"
+                    },
+                    "36": {
+                      "type": "integer"
+                    },
+                    "37": {
+                      "type": "integer"
+                    },
+                    "38": {
+                      "type": "integer"
+                    },
+                    "39": {
+                      "type": "integer"
+                    },
+                    "120": {
+                      "type": "integer"
+                    },
+                    "42": {
+                      "type": "integer"
+                    },
+                    "44": {
+                      "type": "integer"
+                    },
+                    "45": {
+                      "type": "integer"
+                    },
+                    "47": {
+                      "type": "integer"
+                    },
+                    "4": {
+                      "type": "integer"
+                    },
+                    "48": {
+                      "type": "integer"
+                    },
+                    "49": {
+                      "type": "integer"
+                    },
+                    "50": {
+                      "type": "integer"
+                    },
+                    "51": {
+                      "type": "integer"
+                    },
+                    "52": {
+                      "type": "integer"
+                    },
+                    "116": {
+                      "type": "integer"
+                    },
+                    "113": {
+                      "type": "integer"
+                    },
+                    "54": {
+                      "type": "integer"
+                    },
+                    "110": {
+                      "type": "integer"
+                    },
+                    "55": {
+                      "type": "integer"
+                    },
+                    "9": {
+                      "type": "integer"
+                    },
+                    "56": {
+                      "type": "integer"
+                    },
+                    "3": {
+                      "type": "integer"
+                    },
+                    "57": {
+                      "type": "integer"
+                    },
+                    "7": {
+                      "type": "integer"
+                    },
+                    "58": {
+                      "type": "integer"
+                    },
+                    "1": {
+                      "type": "integer"
+                    },
+                    "59": {
+                      "type": "integer"
+                    },
+                    "41": {
+                      "type": "integer"
+                    },
+                    "61": {
+                      "type": "integer"
+                    },
+                    "27": {
+                      "type": "integer"
+                    },
+                    "25": {
+                      "type": "integer"
+                    },
+                    "2": {
+                      "type": "integer"
+                    },
+                    "63": {
+                      "type": "integer"
+                    },
+                    "119": {
+                      "type": "integer"
+                    },
+                    "64": {
+                      "type": "integer"
+                    },
+                    "109": {
+                      "type": "integer"
+                    },
+                    "65": {
+                      "type": "integer"
+                    },
+                    "8": {
+                      "type": "integer"
+                    },
+                    "66": {
+                      "type": "integer"
+                    },
+                    "6": {
+                      "type": "integer"
+                    },
+                    "67": {
+                      "type": "integer"
+                    },
+                    "106": {
+                      "type": "integer"
+                    },
+                    "68": {
+                      "type": "integer"
+                    },
+                    "5": {
+                      "type": "integer"
+                    },
+                    "69": {
+                      "type": "integer"
+                    },
+                    "102": {
+                      "type": "integer"
+                    },
+                    "71": {
+                      "type": "integer"
+                    },
+                    "123": {
+                      "type": "integer"
+                    },
+                    "72": {
+                      "type": "integer"
+                    },
+                    "80": {
+                      "type": "integer"
+                    },
+                    "73": {
+                      "type": "integer"
+                    },
+                    "81": {
+                      "type": "integer"
+                    },
+                    "74": {
+                      "type": "integer"
+                    },
+                    "82": {
+                      "type": "integer"
+                    },
+                    "75": {
+                      "type": "integer"
+                    },
+                    "83": {
+                      "type": "integer"
+                    },
+                    "76": {
+                      "type": "integer"
+                    },
+                    "86": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "WifiAreaCode": {
+                  "type": "string"
+                },
+                "WIFI": {
+                  "type": "integer"
+                }
+              }
+            },
+            "DeviceName": {
+              "type": "string"
+            },
+            "NtwkCapScore": {
+              "type": "integer"
+            },
+            "SerialNumber": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            },
+            "MacFilterCapacity": {
+              "type": "integer"
+            },
+            "other": {
+              "type": "object",
+              "properties": {
+                "guide": {
+                  "type": "boolean"
+                },
+                "pkg_mst_mac": {
+                  "type": "string"
+                },
+                "IsNeedSalt": {
+                  "type": "boolean"
+                },
+                "FirstLogin": {
+                  "type": "integer"
+                },
+                "pkg_slv_mac_list": {
+                  "type": "array",
+                  "items_observed": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "base_mac": {
+                          "type": "string"
+                        },
+                        "mac": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "MpsGuide": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "HardwareVersion": {
+              "type": "string"
+            },
+            "FriendlyName": {
+              "type": "string"
+            },
+            "EmuiVersion": {
+              "type": "string"
+            },
+            "SmartDevInfo": {
+              "type": "object",
+              "properties": {
+                "prodId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlanmode": {
+      "method": "GET",
+      "path": "/api/system/wlanmode",
+      "anonymous": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ConnectState": {
+              "type": "string"
+            },
+            "HilinkStatus": {
+              "type": "integer"
+            },
+            "WLANMode": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ConnectState": {
+              "type": "string"
+            },
+            "WLANMode": {
+              "type": "integer"
+            },
+            "HilinkStatus": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "device_count": {
+      "method": "GET",
+      "path": "/api/system/device_count",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ActiveDeviceNumbers": {
+              "type": "integer"
+            },
+            "LanActiveNumber": {
+              "type": "integer"
+            },
+            "HiLinkDevNum": {
+              "type": "integer"
+            },
+            "UserNumber": {
+              "type": "integer"
+            },
+            "isSupportWifiMps": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "HostInfo": {
+      "method": "GET",
+      "path": "/api/system/HostInfo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "string"
+                },
+                "MACAddress": {
+                  "type": "string"
+                },
+                "IsSetupSlave": {
+                  "type": "boolean"
+                },
+                "HiLinkDevice": {
+                  "type": "boolean"
+                },
+                "IsSupportNoManage": {
+                  "type": "integer"
+                },
+                "HiLinkDevHide": {
+                  "type": "boolean"
+                },
+                "IPAddress": {
+                  "type": "string"
+                },
+                "Active": {
+                  "type": "boolean"
+                },
+                "Active46": {
+                  "type": "boolean"
+                },
+                "WlanActive": {
+                  "type": "boolean"
+                },
+                "IsSlave": {
+                  "type": "boolean"
+                },
+                "SerialNumber": {
+                  "type": "string"
+                },
+                "ShowDeviceRealRate": {
+                  "type": "integer"
+                },
+                "UpRate": {
+                  "type": "integer"
+                },
+                "DownRate": {
+                  "type": "integer"
+                },
+                "AccessRecord": {
+                  "type": "string"
+                },
+                "TxKBytes": {
+                  "type": "string"
+                },
+                "RxKBytes": {
+                  "type": "string"
+                },
+                "IPv6Address": {
+                  "type": "string"
+                },
+                "V6Active": {
+                  "type": "boolean"
+                },
+                "IconType": {
+                  "type": "string"
+                },
+                "ActualName": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "string"
+                },
+                "HostName": {
+                  "type": "string"
+                },
+                "InterfaceType": {
+                  "type": "string"
+                },
+                "Layer2Interface": {
+                  "type": "string"
+                },
+                "AddressSource": {
+                  "type": "string"
+                },
+                "LeaseTime": {
+                  "type": "string"
+                },
+                "VendorClassID": {
+                  "type": "string"
+                },
+                "hwtypeoptionnew": {
+                  "type": "boolean"
+                },
+                "Frequency": {
+                  "type": "string"
+                },
+                "IsGuest": {
+                  "type": "boolean"
+                },
+                "MacFilterID": {
+                  "type": "string"
+                },
+                "ParentControlEnable": {
+                  "type": "boolean"
+                },
+                "ParentControl": {
+                  "type": "boolean"
+                },
+                "DeviceDownRateEnable": {
+                  "type": "boolean"
+                },
+                "QosclassID": {
+                  "type": "string"
+                },
+                "PolicerID": {
+                  "type": "string"
+                },
+                "ClassQueue": {
+                  "type": "integer"
+                },
+                "ActualManu": {
+                  "type": "string"
+                },
+                "ActualType": {
+                  "type": "string"
+                },
+                "ProdId": {
+                  "type": "string"
+                },
+                "Feature": {
+                  "type": "integer"
+                },
+                "rate": {
+                  "type": "integer"
+                },
+                "rssi": {
+                  "type": "integer"
+                },
+                "DeviceMaxUpLoadRate": {
+                  "type": "integer"
+                },
+                "DeviceMaxDownLoadRate": {
+                  "type": "integer"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "MultiHostInfo": {
+      "method": "GET",
+      "path": "/api/system/MultiHostInfo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "onlinestate": {
+      "method": "GET",
+      "path": "/api/system/onlinestate",
+      "anonymous": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Cookie": {
+              "type": "string"
+            },
+            "UpgradeContent": {
+              "type": "string"
+            },
+            "DownloadProcess": {
+              "type": "integer"
+            },
+            "UpdateState": {
+              "type": "integer"
+            },
+            "ImageSize": {
+              "type": "integer"
+            },
+            "DownloadSize": {
+              "type": "integer"
+            },
+            "SN": {
+              "type": "string"
+            },
+            "UpgTimes": {
+              "type": "integer"
+            },
+            "CurrentUpgradeTime": {
+              "type": "string"
+            },
+            "CurrentChangeLog": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            },
+            "custinfo": {
+              "type": "object",
+              "properties": {
+                "CustDeviceType": {
+                  "type": "string"
+                },
+                "CustDeviceName": {
+                  "type": "string"
+                },
+                "CustDeviceBand": {
+                  "type": "integer"
+                },
+                "CustZHFriendlyName": {
+                  "type": "string"
+                },
+                "CustENFriendlyName": {
+                  "type": "string"
+                }
+              }
+            },
+            "DeviceType": {
+              "type": "string"
+            },
+            "IpAddress": {
+              "type": "string"
+            },
+            "DevId": {
+              "type": "string"
+            },
+            "IsSupportOnlineUpg": {
+              "type": "integer"
+            },
+            "DeviceName": {
+              "type": "string"
+            },
+            "IsMainDevice": {
+              "type": "boolean"
+            },
+            "IsSupportGUI": {
+              "type": "integer"
+            },
+            "CurrentVersion": {
+              "type": "string"
+            },
+            "URL": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Cookie": {
+              "type": "string"
+            },
+            "UpgradeContent": {
+              "type": "string"
+            },
+            "DownloadProcess": {
+              "type": "integer"
+            },
+            "UpdateState": {
+              "type": "integer"
+            },
+            "ImageSize": {
+              "type": "integer"
+            },
+            "DownloadSize": {
+              "type": "integer"
+            },
+            "SN": {
+              "type": "string"
+            },
+            "UpgTimes": {
+              "type": "integer"
+            },
+            "CurrentUpgradeTime": {
+              "type": "string"
+            },
+            "CurrentChangeLog": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            },
+            "custinfo": {
+              "type": "object",
+              "properties": {
+                "CustDeviceType": {
+                  "type": "string"
+                },
+                "CustDeviceName": {
+                  "type": "string"
+                },
+                "CustDeviceBand": {
+                  "type": "integer"
+                },
+                "CustZHFriendlyName": {
+                  "type": "string"
+                },
+                "CustENFriendlyName": {
+                  "type": "string"
+                }
+              }
+            },
+            "DeviceType": {
+              "type": "string"
+            },
+            "IpAddress": {
+              "type": "string"
+            },
+            "DevId": {
+              "type": "string"
+            },
+            "IsSupportOnlineUpg": {
+              "type": "integer"
+            },
+            "DeviceName": {
+              "type": "string"
+            },
+            "IsMainDevice": {
+              "type": "boolean"
+            },
+            "IsSupportGUI": {
+              "type": "integer"
+            },
+            "CurrentVersion": {
+              "type": "string"
+            },
+            "URL": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "topology": {
+      "method": "GET",
+      "path": "/api/device/topology",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "ConnectedDevices": {
+                  "type": "array",
+                  "items_observed": []
+                },
+                "Active": {
+                  "type": "boolean"
+                },
+                "HiLinkType": {
+                  "type": "string"
+                },
+                "MACAddress": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "ConnectedDevices": {
+                  "type": "array",
+                  "items_observed": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "ConnectedDevices": {
+                          "type": "array",
+                          "items_observed": []
+                        },
+                        "Active": {
+                          "type": "boolean"
+                        },
+                        "HiLinkType": {
+                          "type": "string"
+                        },
+                        "MACAddress": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Active": {
+                  "type": "boolean"
+                },
+                "HiLinkType": {
+                  "type": "string"
+                },
+                "MACAddress": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "MACAddress": {
+                  "type": "string"
+                },
+                "UpdateState": {
+                  "type": "integer"
+                },
+                "routerSelf": {
+                  "type": "integer"
+                },
+                "IsSupportOnlineUpg": {
+                  "type": "integer"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "l2topo": {
+      "method": "GET",
+      "path": "/api/device/l2topo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "slavedevinfo": {
+      "method": "GET",
+      "path": "/api/hilink/slavedevinfo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": []
+        },
+        "empty": true
+      }
+    },
+    "hilink_status": {
+      "method": "GET",
+      "path": "/api/hilink/hilink_status",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "hilink_status": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wan": {
+      "method": "GET",
+      "path": "/api/ntwk/wan?type=active",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "PPPDialIpAddr": {
+              "type": "string"
+            },
+            "LowerLayer": {
+              "type": "string"
+            },
+            "IPv4DnsServers": {
+              "type": "string"
+            },
+            "IPv6AddrPrefixLen": {
+              "type": "integer"
+            },
+            "DNSOverrideAllowed": {
+              "type": "boolean"
+            },
+            "IPv6Enable": {
+              "type": "boolean"
+            },
+            "DownBandwidthMax": {
+              "type": "integer"
+            },
+            "IPv6AddrType": {
+              "type": "string"
+            },
+            "BandwidthTime": {
+              "type": "string"
+            },
+            "IPv6Addr": {
+              "type": "string"
+            },
+            "UpBandwidthHistory": {
+              "type": "string"
+            },
+            "IPv6Gateway": {
+              "type": "string"
+            },
+            "ID": {
+              "type": "string"
+            },
+            "APN": {
+              "type": "string"
+            },
+            "DialNum": {
+              "type": "string"
+            },
+            "WANDHCPOption60": {
+              "type": "string"
+            },
+            "IPv4StaticMask": {
+              "type": "string"
+            },
+            "IPv4StaticGateway": {
+              "type": "string"
+            },
+            "IsDefault": {
+              "type": "integer"
+            },
+            "MACColone": {
+              "type": "string"
+            },
+            "MACColoneEnable": {
+              "type": "boolean"
+            },
+            "DownBandwidthHistory": {
+              "type": "string"
+            },
+            "IPv4StaticDnsServers": {
+              "type": "string"
+            },
+            "Username": {
+              "type": "string"
+            },
+            "Password": {
+              "type": "string"
+            },
+            "MRU": {
+              "type": "integer"
+            },
+            "IPv4StaticAddr": {
+              "type": "string"
+            },
+            "PPPAuthMode": {
+              "type": "string"
+            },
+            "VLANData": {
+              "type": "array",
+              "items_observed": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "VLAN1p": {
+                      "type": "integer"
+                    },
+                    "VLANMode": {
+                      "type": "string"
+                    },
+                    "ID": {
+                      "type": "string"
+                    },
+                    "VLANId": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              ]
+            },
+            "PPPTrigger": {
+              "type": "string"
+            },
+            "IsConfigured": {
+              "type": "integer"
+            },
+            "PPPIdletime": {
+              "type": "integer"
+            },
+            "linkdata": {
+              "type": "object",
+              "properties": {
+                "VLAN1p": {
+                  "type": "integer"
+                },
+                "VLANMode": {
+                  "type": "string"
+                },
+                "VLANEnable": {
+                  "type": "boolean"
+                },
+                "ID": {
+                  "type": "string"
+                },
+                "VLANId": {
+                  "type": "integer"
+                }
+              }
+            },
+            "PPPoEServiceName": {
+              "type": "string"
+            },
+            "Alias": {
+              "type": "string"
+            },
+            "UpBandwidthMax": {
+              "type": "integer"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "AccessType": {
+              "type": "string"
+            },
+            "UpBandwidth": {
+              "type": "integer"
+            },
+            "ConnectionType": {
+              "type": "string"
+            },
+            "ConnectionStatus": {
+              "type": "string"
+            },
+            "IPv6ConnectionStatus": {
+              "type": "string"
+            },
+            "AccessStatus": {
+              "type": "string"
+            },
+            "ServiceList": {
+              "type": "string"
+            },
+            "DownBandwidth": {
+              "type": "integer"
+            },
+            "MTU": {
+              "type": "integer"
+            },
+            "IPv6PrefixList": {
+              "type": "string"
+            },
+            "MSS": {
+              "type": "integer"
+            },
+            "IPv6DnsServers": {
+              "type": "string"
+            },
+            "NATType": {
+              "type": "integer"
+            },
+            "IPv6AddrSet": {
+              "type": "string"
+            },
+            "IPv4Enable": {
+              "type": "boolean"
+            },
+            "IPv4Gateway": {
+              "type": "string"
+            },
+            "IPv4AddrType": {
+              "type": "string"
+            },
+            "IPv4Mask": {
+              "type": "string"
+            },
+            "IPv4Addr": {
+              "type": "string"
+            },
+            "WanType": {
+              "type": "string"
+            },
+            "PPPDialIpMode": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "hilinkwaninfo": {
+      "method": "GET",
+      "path": "/api/ntwk/hilinkwaninfo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Wlan5SSID": {
+              "type": "string"
+            },
+            "ConnState": {
+              "type": "string"
+            },
+            "Wlan24SSID": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wandiagnose": {
+      "method": "GET",
+      "path": "/api/ntwk/wandiagnose",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ErrReason": {
+              "type": "string"
+            },
+            "X_IPv6PrefixLength": {
+              "type": "integer"
+            },
+            "DNSServers": {
+              "type": "string"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "AutoFlag": {
+              "type": "string"
+            },
+            "UpMaxBitRate": {
+              "type": "string"
+            },
+            "DownMaxBitRate": {
+              "type": "string"
+            },
+            "X_IPv6AddressingType": {
+              "type": "string"
+            },
+            "HasInternetWan": {
+              "type": "boolean"
+            },
+            "X_IPv6Address": {
+              "type": "string"
+            },
+            "WANAccessType": {
+              "type": "string"
+            },
+            "ConnectionType": {
+              "type": "string"
+            },
+            "ConnectionStatus": {
+              "type": "string"
+            },
+            "X_IPv6DNSServers": {
+              "type": "string"
+            },
+            "X_IPv6ConnectionStatus": {
+              "type": "string"
+            },
+            "X_IPv6PrefixList": {
+              "type": "string"
+            },
+            "ExternalIPAddress": {
+              "type": "string"
+            },
+            "StatusCode": {
+              "type": "string"
+            },
+            "DetailErr": {
+              "type": "string"
+            },
+            "DetailError": {
+              "type": "string"
+            },
+            "ManWanIP": {
+              "type": "string"
+            },
+            "LinkStatus": {
+              "type": "string"
+            },
+            "X_IPv6DefaultGateway": {
+              "type": "string"
+            },
+            "MACAddress": {
+              "type": "string"
+            },
+            "X_IPv4Enable": {
+              "type": "boolean"
+            },
+            "X_IPv6Enable": {
+              "type": "boolean"
+            },
+            "DuplexMode": {
+              "type": "string"
+            },
+            "DefaultGateway": {
+              "type": "string"
+            },
+            "WanType": {
+              "type": "string"
+            },
+            "MaxBitRate": {
+              "type": "string"
+            },
+            "Uptime": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "getmacaddress": {
+      "method": "GET",
+      "path": "/api/ntwk/getmacaddress",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "macaddress": {
+              "type": "string"
+            },
+            "ipaddress": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan": {
+      "method": "GET",
+      "path": "/api/ntwk/lan",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "SourceIP": {
+              "type": "string"
+            },
+            "FristIP": {
+              "type": "string"
+            },
+            "FirstMac": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "DevName": {
+              "type": "string"
+            },
+            "FullName": {
+              "type": "string"
+            },
+            "dhcpID": {
+              "type": "string"
+            },
+            "MinIP": {
+              "type": "string"
+            },
+            "MaxIP": {
+              "type": "string"
+            },
+            "ID": {
+              "type": "string"
+            },
+            "LNSAddr": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan_host": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_host",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "FristIP": {
+              "type": "string"
+            },
+            "FirstMac": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "DevName": {
+              "type": "string"
+            },
+            "MACAddress": {
+              "type": "string"
+            },
+            "ID": {
+              "type": "string"
+            },
+            "FirstEnable": {
+              "type": "boolean"
+            },
+            "LNSAddr": {
+              "type": "string"
+            },
+            "ShowLanDomainEnable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan_all": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_all",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "IPInterfaceIPAddress": {
+                  "type": "string"
+                },
+                "ID": {
+                  "type": "string"
+                },
+                "IPInterfaceSubnetMask": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "lan_server": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_server",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "UseAllocatedWAN": {
+              "type": "string"
+            },
+            "AssociatedConnection": {
+              "type": "string"
+            },
+            "PassthroughMACAddress": {
+              "type": "string"
+            },
+            "PassthroughLease": {
+              "type": "integer"
+            },
+            "dnsmode": {
+              "type": "string"
+            },
+            "ServerEnable": {
+              "type": "boolean"
+            },
+            "MinIP": {
+              "type": "string"
+            },
+            "MaxIP": {
+              "type": "string"
+            },
+            "DNSServerone": {
+              "type": "string"
+            },
+            "DNSServertwo": {
+              "type": "string"
+            },
+            "DHCPLeaseTime": {
+              "type": "integer"
+            },
+            "ID": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan_ipaddressreserve": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_ipaddressreserve",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "string"
+                },
+                "Enable": {
+                  "type": "boolean"
+                },
+                "Chaddr": {
+                  "type": "string"
+                },
+                "Yiaddr": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "wlanradio": {
+      "method": "GET",
+      "path": "/api/ntwk/wlanradio",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "PowerModeChgTip": {
+              "type": "boolean"
+            },
+            "Enable5G": {
+              "type": "boolean"
+            },
+            "InitEnable5G": {
+              "type": "boolean"
+            },
+            "Enable2G": {
+              "type": "boolean"
+            },
+            "InitEnable2G": {
+              "type": "boolean"
+            },
+            "WLANMode": {
+              "type": "integer"
+            },
+            "PowerMode": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "WlanGuideBasic": {
+      "method": "GET",
+      "path": "/api/ntwk/WlanGuideBasic?type=notshowpassall",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "DbhoEnable": {
+              "type": "boolean"
+            },
+            "WifiConfig": {
+              "type": "array",
+              "items_observed": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "X_Wlan11NGIControl": {
+                      "type": "string"
+                    },
+                    "X_Wlan11NTxRxStream": {
+                      "type": "integer"
+                    },
+                    "BasicEncryptionMode": {
+                      "type": "string"
+                    },
+                    "BasicAuthMode": {
+                      "type": "string"
+                    },
+                    "ID": {
+                      "type": "string"
+                    },
+                    "WepKeyLen": {
+                      "type": "integer"
+                    },
+                    "WepKeyIndex": {
+                      "type": "integer"
+                    },
+                    "WpaEncryptionMode": {
+                      "type": "string"
+                    },
+                    "IEEEiEncryptionMode": {
+                      "type": "string"
+                    },
+                    "MixedEncryptionModes": {
+                      "type": "string"
+                    },
+                    "MaxBitRate": {
+                      "type": "string"
+                    },
+                    "X_WlanIsolateControl": {
+                      "type": "boolean"
+                    },
+                    "X_AssociateDeviceNum": {
+                      "type": "integer"
+                    },
+                    "WifiSsidEnable": {
+                      "type": "boolean"
+                    },
+                    "X_RTSThreshold": {
+                      "type": "integer"
+                    },
+                    "X_FragThreshold": {
+                      "type": "integer"
+                    },
+                    "X_DtimPeriod": {
+                      "type": "integer"
+                    },
+                    "X_BeaconPeriod": {
+                      "type": "integer"
+                    },
+                    "PwdScore": {
+                      "type": "integer"
+                    },
+                    "Channel": {
+                      "type": "integer"
+                    },
+                    "TransmitPower": {
+                      "type": "integer"
+                    },
+                    "WMMEnable": {
+                      "type": "boolean"
+                    },
+                    "WifiSsid": {
+                      "type": "string"
+                    },
+                    "WpaPreSharedKey": {
+                      "type": "string"
+                    },
+                    "TWTEnable": {
+                      "type": "boolean"
+                    },
+                    "Dot11REnable": {
+                      "type": "boolean"
+                    },
+                    "FrequencyBand": {
+                      "type": "string"
+                    },
+                    "WifiEnable": {
+                      "type": "boolean"
+                    },
+                    "RegulatoryDomain": {
+                      "type": "string"
+                    },
+                    "WlanStandard": {
+                      "type": "string"
+                    },
+                    "X_Wlan11NHtMcs": {
+                      "type": "string"
+                    },
+                    "WifiSsidIndex": {
+                      "type": "integer"
+                    },
+                    "X_Wlan11NBWControl": {
+                      "type": "string"
+                    },
+                    "WifiSsidFactory": {
+                      "type": "string"
+                    },
+                    "IsWiFiRestoreCfg": {
+                      "type": "integer"
+                    },
+                    "WifiHideBroadcast": {
+                      "type": "boolean"
+                    },
+                    "BeaconType": {
+                      "type": "string"
+                    },
+                    "WepKey": {
+                      "type": "object",
+                      "properties": {
+                        "4": {
+                          "type": "string"
+                        },
+                        "2": {
+                          "type": "string"
+                        },
+                        "3": {
+                          "type": "string"
+                        },
+                        "1": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "wifiCompat": {
+              "type": "string"
+            },
+            "setWifiCompat": {
+              "type": "boolean"
+            },
+            "SyncWifiPwd": {
+              "type": "integer"
+            },
+            "wifiCompatEnable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "guest_network": {
+      "method": "GET",
+      "path": "/api/ntwk/guest_network?type=notshowpassall",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "FrequencyBand": {
+                  "type": "string"
+                },
+                "PwdScore": {
+                  "type": "integer"
+                },
+                "EnableFrequency": {
+                  "type": "boolean"
+                },
+                "SecOpt": {
+                  "type": "string"
+                },
+                "CanEnableFrequency": {
+                  "type": "boolean"
+                },
+                "WpaPreSharedKey": {
+                  "type": "string"
+                },
+                "WifiSsid": {
+                  "type": "string"
+                },
+                "ID": {
+                  "type": "string"
+                },
+                "ValidTime": {
+                  "type": "integer"
+                },
+                "RestTime": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "guest_network_resttime": {
+      "method": "GET",
+      "path": "/api/ntwk/guest_network_resttime",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "guest_network_limitrate": {
+      "method": "GET",
+      "path": "/api/ntwk/guest_network_limitrate",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Enable": {
+              "type": "integer"
+            },
+            "PeakRate": {
+              "type": "integer"
+            },
+            "X_DownPeakRate": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlandbho": {
+      "method": "GET",
+      "path": "/api/ntwk/wlandbho",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "DbhoEnable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlanwifisync": {
+      "method": "GET",
+      "path": "/api/ntwk/wlanwifisync",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wifiPowerStatus": {
+              "type": "boolean"
+            },
+            "WifisyncStatus": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlanintelligent": {
+      "method": "GET",
+      "path": "/api/ntwk/wlanintelligent",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "ID": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlanaccess": {
+      "method": "GET",
+      "path": "/api/ntwk/wlanfilterenhance",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "string"
+                },
+                "FrequencyBand": {
+                  "type": "string"
+                },
+                "MACAddressControlEnabled": {
+                  "type": "boolean"
+                },
+                "MacFilterPolicy": {
+                  "type": "integer"
+                },
+                "BMACAddresses": {
+                  "type": "array",
+                  "items_observed": []
+                },
+                "WMACAddresses": {
+                  "type": "array",
+                  "items_observed": []
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "wlantimeswitch": {
+      "method": "GET",
+      "path": "/api/ntwk/wlantimeswitch",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "datelist": {
+              "type": "array",
+              "items_observed": []
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "wlan_time_switch_list": {
+      "method": "GET",
+      "path": "/api/ntwk/wlan_time_switch_list",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "backhaul": {
+      "method": "GET",
+      "path": "/api/ntwk/backhaul",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pwd": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "repeaterinfo": {
+      "method": "GET",
+      "path": "/api/ntwk/repeaterinfo",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "WLANMode": {
+              "type": "integer"
+            },
+            "RepeaterEnable": {
+              "type": "boolean"
+            },
+            "Inputbyhand": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "repeaterstate": {
+      "method": "GET",
+      "path": "/api/ntwk/repeaterstate",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Wlan24SSID": {
+              "type": "string"
+            },
+            "Wlan5SSID": {
+              "type": "string"
+            },
+            "bssid": {
+              "type": "string"
+            },
+            "connstate": {
+              "type": "string"
+            },
+            "signal": {
+              "type": "string"
+            },
+            "channel": {
+              "type": "string"
+            },
+            "speed": {
+              "type": "string"
+            },
+            "WifiSsidFactory": {
+              "type": "string"
+            },
+            "radio": {
+              "type": "string"
+            },
+            "ssid": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan_upnp": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_upnp",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "lan_upnp_portmapping": {
+      "method": "GET",
+      "path": "/api/ntwk/lan_upnp_portmapping",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": []
+        },
+        "empty": true
+      }
+    },
+    "ipv6_enable": {
+      "method": "GET",
+      "path": "/api/ntwk/ipv6_enable",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Enable": {
+              "type": "integer"
+            },
+            "ID": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "ipv6_wan": {
+      "method": "GET",
+      "path": "/api/ntwk/ipv6_wan",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "X_IPv6DNSServerOne": {
+              "type": "string"
+            },
+            "X_IPv6DNSServerTwo": {
+              "type": "string"
+            },
+            "X_IPv6PrefixLength": {
+              "type": "integer"
+            },
+            "X_IPv6DNSEnabled": {
+              "type": "boolean"
+            },
+            "X_IPv6AddressingType": {
+              "type": "string"
+            },
+            "X_IPv6DNSOverrideAllowed": {
+              "type": "boolean"
+            },
+            "X_IPv6Address": {
+              "type": "string"
+            },
+            "X_IPv6DefaultGateway": {
+              "type": "string"
+            },
+            "ID": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "ipv6_lan": {
+      "method": "GET",
+      "path": "/api/ntwk/ipv6_lan",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "WanLinkAddr": {
+              "type": "string"
+            },
+            "SLAAC": {
+              "type": "object",
+              "properties": {
+                "SLAAC_PrefixLength": {
+                  "type": "integer"
+                },
+                "SLAAC_Preferredlifetime": {
+                  "type": "integer"
+                },
+                "SLAAC_Validlifetime": {
+                  "type": "integer"
+                },
+                "SLAAC_ID": {
+                  "type": "string"
+                },
+                "SLAAC_RouterAdvertisementEnable": {
+                  "type": "boolean"
+                },
+                "SLAAC_UseAllocatedWAN": {
+                  "type": "string"
+                },
+                "SLAAC_Prefix": {
+                  "type": "string"
+                }
+              }
+            },
+            "LanLinkAddr": {
+              "type": "string"
+            },
+            "DHCP6s": {
+              "type": "object",
+              "properties": {
+                "DHCP6s_ID": {
+                  "type": "string"
+                },
+                "DHCP6s_DHCPServerEnable": {
+                  "type": "boolean"
+                },
+                "DHCP6s_UseAllocatedWAN": {
+                  "type": "string"
+                },
+                "DHCP6s_Prefix": {
+                  "type": "string"
+                },
+                "DHCP6s_PrefixLength": {
+                  "type": "integer"
+                },
+                "DHCP6s_Preferredlifetime": {
+                  "type": "integer"
+                },
+                "DHCP6s_Validlifetime": {
+                  "type": "integer"
+                },
+                "DHCP6s_Dhcp6sDNSServerOne": {
+                  "type": "string"
+                },
+                "DHCP6s_Dhcp6sDNSServerTwo": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "firewall": {
+      "method": "GET",
+      "path": "/api/ntwk/firewall",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "SynFlooding": {
+              "type": "boolean"
+            },
+            "IcmpFlooding": {
+              "type": "boolean"
+            },
+            "ArpAttack": {
+              "type": "boolean"
+            },
+            "CurrentLevel": {
+              "type": "string"
+            },
+            "SetLevel": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "dmz": {
+      "method": "GET",
+      "path": "/api/ntwk/dmz",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "IPAddress": {
+              "type": "string"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "HostName": {
+              "type": "string"
+            },
+            "HostIPAddress": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "portmapping": {
+      "method": "GET",
+      "path": "/api/ntwk/portmapping",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "Enable": {
+                  "type": "boolean"
+                },
+                "InternalHost": {
+                  "type": "string"
+                },
+                "ApplicationID": {
+                  "type": "string"
+                },
+                "HostName": {
+                  "type": "string"
+                },
+                "ID": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "HostIPAddress": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "porttrigger": {
+      "method": "GET",
+      "path": "/api/ntwk/porttrigger",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": []
+        },
+        "empty": true
+      }
+    },
+    "timecontrol": {
+      "method": "GET",
+      "path": "/api/ntwk/timecontrol",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": []
+        },
+        "empty": true
+      }
+    },
+    "urlfilter": {
+      "method": "GET",
+      "path": "/api/ntwk/urlfilter",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": []
+        },
+        "empty": true
+      }
+    },
+    "sntp": {
+      "method": "GET",
+      "path": "/api/ntwk/sntp",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "NTPServer1": {
+              "type": "string"
+            },
+            "NTPServer2": {
+              "type": "string"
+            },
+            "CurrentLocalTime": {
+              "type": "string"
+            },
+            "LocalTimeZoneName": {
+              "type": "string"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "SntpIsSynchronizedStatus": {
+              "type": "boolean"
+            },
+            "TimeZoneIdx": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "qos": {
+      "method": "GET",
+      "path": "/api/app/qos",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "qosclass_host": {
+      "method": "GET",
+      "path": "/api/app/qosclass_host",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    },
+    "ethportmode": {
+      "method": "GET",
+      "path": "/api/app/ethportmode",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Mode": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "ethnegotiation": {
+      "method": "GET",
+      "path": "/api/ntwk/ethnegotiation",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ethintflist": {
+              "type": "array",
+              "items_observed": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "Status": {
+                      "type": "integer"
+                    },
+                    "Speed": {
+                      "type": "integer"
+                    },
+                    "PortName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "iptv": {
+      "method": "GET",
+      "path": "/api/ntwk/iptv",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "VLANData": {
+              "type": "array",
+              "items_observed": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "VLAN1p": {
+                      "type": "integer"
+                    },
+                    "ConnectionType": {
+                      "type": "string"
+                    },
+                    "ID": {
+                      "type": "string"
+                    },
+                    "IPTVMode": {
+                      "type": "string"
+                    },
+                    "VLANId": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              ]
+            },
+            "VLANMode": {
+              "type": "string"
+            },
+            "PVC": {
+              "type": "string"
+            },
+            "LANAlias": {
+              "type": "string"
+            },
+            "SnoopingEnable": {
+              "type": "boolean"
+            },
+            "ProxyEnable": {
+              "type": "boolean"
+            },
+            "ProxyWan": {
+              "type": "string"
+            },
+            "VLANId": {
+              "type": "integer"
+            },
+            "VLAN1p": {
+              "type": "integer"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "AccessType": {
+              "type": "string"
+            },
+            "VLANEnable": {
+              "type": "boolean"
+            },
+            "ConnectionType": {
+              "type": "string"
+            },
+            "WANPath": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "autoupgrade": {
+      "method": "GET",
+      "path": "/api/system/autoupgrade",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "EndTime": {
+              "type": "string"
+            },
+            "Enable": {
+              "type": "boolean"
+            },
+            "LatestHotaTime": {
+              "type": "string"
+            },
+            "StartTime": {
+              "type": "string"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "rebootplan": {
+      "method": "GET",
+      "path": "/api/system/rebootplan",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 404
+      }
+    },
+    "nfc_switch": {
+      "method": "GET",
+      "path": "/api/bsp/nfc_switch",
+      "anonymous": {
+        "http_status": 404
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "nfcSwitch": {
+              "type": "integer"
+            }
+          }
+        },
+        "result_codes": {},
+        "empty": false
+      }
+    },
+    "onlinestate_all": {
+      "method": "GET",
+      "path": "/api/system/onlinestate?devid=all",
+      "anonymous": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "custinfo": {
+                  "type": "object",
+                  "properties": {
+                    "CustDeviceType": {
+                      "type": "string"
+                    },
+                    "CustZHFriendlyName": {
+                      "type": "string"
+                    },
+                    "CustDeviceName": {
+                      "type": "string"
+                    },
+                    "CustDeviceBand": {
+                      "type": "integer"
+                    },
+                    "CustENFriendlyName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "CurrentVersion": {
+                  "type": "string"
+                },
+                "SN": {
+                  "type": "string"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "UpgradeContent": {
+                  "type": "string"
+                },
+                "DownloadProcess": {
+                  "type": "integer"
+                },
+                "UpdateState": {
+                  "type": "integer"
+                },
+                "ImageSize": {
+                  "type": "integer"
+                },
+                "DownloadSize": {
+                  "type": "integer"
+                },
+                "IsMainDevice": {
+                  "type": "boolean"
+                },
+                "UpgTimes": {
+                  "type": "integer"
+                },
+                "CurrentUpgradeTime": {
+                  "type": "string"
+                },
+                "CurrentChangeLog": {
+                  "type": "string"
+                },
+                "DevId": {
+                  "type": "string"
+                },
+                "IsSupportOnlineUpg": {
+                  "type": "integer"
+                },
+                "DeviceType": {
+                  "type": "string"
+                },
+                "IpAddress": {
+                  "type": "string"
+                },
+                "URL": {
+                  "type": "string"
+                },
+                "DeviceName": {
+                  "type": "string"
+                },
+                "IsSupportGUI": {
+                  "type": "integer"
+                },
+                "Cookie": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "IsSupportNoUI": {
+                  "type": "integer"
+                },
+                "CurrentVersion": {
+                  "type": "string"
+                },
+                "SN": {
+                  "type": "string"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "UpgradeContent": {
+                  "type": "string"
+                },
+                "DownloadProcess": {
+                  "type": "integer"
+                },
+                "UpdateState": {
+                  "type": "integer"
+                },
+                "ImageSize": {
+                  "type": "integer"
+                },
+                "DownloadSize": {
+                  "type": "integer"
+                },
+                "IsMainDevice": {
+                  "type": "boolean"
+                },
+                "UpgTimes": {
+                  "type": "integer"
+                },
+                "CurrentUpgradeTime": {
+                  "type": "string"
+                },
+                "CurrentChangeLog": {
+                  "type": "string"
+                },
+                "DevId": {
+                  "type": "string"
+                },
+                "IsSupportOnlineUpg": {
+                  "type": "integer"
+                },
+                "DeviceType": {
+                  "type": "string"
+                },
+                "IpAddress": {
+                  "type": "string"
+                },
+                "URL": {
+                  "type": "string"
+                },
+                "DeviceName": {
+                  "type": "string"
+                },
+                "Cookie": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      },
+      "authenticated": {
+        "http_status": 200,
+        "schema": {
+          "type": "array",
+          "items_observed": [
+            {
+              "type": "object",
+              "properties": {
+                "custinfo": {
+                  "type": "object",
+                  "properties": {
+                    "CustDeviceType": {
+                      "type": "string"
+                    },
+                    "CustZHFriendlyName": {
+                      "type": "string"
+                    },
+                    "CustDeviceName": {
+                      "type": "string"
+                    },
+                    "CustDeviceBand": {
+                      "type": "integer"
+                    },
+                    "CustENFriendlyName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "CurrentVersion": {
+                  "type": "string"
+                },
+                "SN": {
+                  "type": "string"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "UpgradeContent": {
+                  "type": "string"
+                },
+                "DownloadProcess": {
+                  "type": "integer"
+                },
+                "UpdateState": {
+                  "type": "integer"
+                },
+                "ImageSize": {
+                  "type": "integer"
+                },
+                "DownloadSize": {
+                  "type": "integer"
+                },
+                "IsMainDevice": {
+                  "type": "boolean"
+                },
+                "UpgTimes": {
+                  "type": "integer"
+                },
+                "CurrentUpgradeTime": {
+                  "type": "string"
+                },
+                "CurrentChangeLog": {
+                  "type": "string"
+                },
+                "DevId": {
+                  "type": "string"
+                },
+                "IsSupportOnlineUpg": {
+                  "type": "integer"
+                },
+                "DeviceType": {
+                  "type": "string"
+                },
+                "IpAddress": {
+                  "type": "string"
+                },
+                "URL": {
+                  "type": "string"
+                },
+                "DeviceName": {
+                  "type": "string"
+                },
+                "IsSupportGUI": {
+                  "type": "integer"
+                },
+                "Cookie": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "IsSupportNoUI": {
+                  "type": "integer"
+                },
+                "CurrentVersion": {
+                  "type": "string"
+                },
+                "SN": {
+                  "type": "string"
+                },
+                "Version": {
+                  "type": "string"
+                },
+                "UpgradeContent": {
+                  "type": "string"
+                },
+                "DownloadProcess": {
+                  "type": "integer"
+                },
+                "UpdateState": {
+                  "type": "integer"
+                },
+                "ImageSize": {
+                  "type": "integer"
+                },
+                "DownloadSize": {
+                  "type": "integer"
+                },
+                "IsMainDevice": {
+                  "type": "boolean"
+                },
+                "UpgTimes": {
+                  "type": "integer"
+                },
+                "CurrentUpgradeTime": {
+                  "type": "string"
+                },
+                "CurrentChangeLog": {
+                  "type": "string"
+                },
+                "DevId": {
+                  "type": "string"
+                },
+                "IsSupportOnlineUpg": {
+                  "type": "integer"
+                },
+                "DeviceType": {
+                  "type": "string"
+                },
+                "IpAddress": {
+                  "type": "string"
+                },
+                "URL": {
+                  "type": "string"
+                },
+                "DeviceName": {
+                  "type": "string"
+                },
+                "Cookie": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "empty": false
+      }
+    }
+  }
+}

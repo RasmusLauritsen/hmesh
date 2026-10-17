@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-17T20:14:24.299100+00:00",
+  "operation": "create DHCP test reservation",
+  "endpoint": "/api/ntwk/lan_ipaddressreserve",
+  "post_count": 1,
+  "response_errcode": 0,
+  "write_exception_class": null,
+  "test_reservation": {
+    "ID": "InternetGatewayDevice.LANDevice.1.LANHostConfigManagement.DHCPStaticAddress.44.",
+    "Enable": true,
+    "Chaddr": "02:A8:6C:B1:A5:31",
+    "Yiaddr": "192.168.50.254"
+  },
+  "readback_matches": 1,
+  "reservation_count_before": 19,
+  "reservation_count_after": 20,
+  "original_reservations_unchanged": true,
+  "dhcp_server_settings_unchanged": true,
+  "left_in_place": false,
+  "cleanup": {
+    "observed_at": "2026-10-17T20:16:12.881881+00:00",
+    "action": "delete",
+    "post_count": 1,
+    "response_errcode": 0,
+    "reservation_count_after": 19,
+    "test_entry_absent": true,
+    "other_reservations_and_dhcp_settings_unchanged": true
+  },
+  "limitations": "Candidate absent from router host/reservation/mapping records; not proven free of silent static-IP devices. DHCP lease acquisition not tested."
+}

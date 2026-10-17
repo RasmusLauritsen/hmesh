@@ -1,0 +1,541 @@
+{
+  "observed_at": "2026-10-17T20:11:51.890049+00:00",
+  "writes_performed": false,
+  "endpoints": {
+    "application": {
+      "http_status": 200,
+      "schema": {
+        "type": "array",
+        "items_observed": [
+          {
+            "type": "object",
+            "properties": {
+              "Flag": {
+                "type": "integer"
+              },
+              "Type": {
+                "type": "integer"
+              },
+              "EnableFilter": {
+                "type": "boolean"
+              },
+              "EnableQos": {
+                "type": "boolean"
+              },
+              "ID": {
+                "type": "string"
+              },
+              "EnablePortmapping": {
+                "type": "boolean"
+              },
+              "EnablePorttrigger": {
+                "type": "boolean"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "ObjAcc": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "applicationitems": {
+      "http_status": 200,
+      "schema": {
+        "type": "array",
+        "items_observed": [
+          {
+            "type": "object",
+            "properties": {
+              "InternalPort": {
+                "type": "integer"
+              },
+              "ID": {
+                "type": "string"
+              },
+              "Protocol": {
+                "type": "string"
+              },
+              "ExternalPort": {
+                "type": "integer"
+              },
+              "InternalPortEnd": {
+                "type": "integer"
+              },
+              "ExternalPortEnd": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "portmapping": {
+      "http_status": 200,
+      "schema": {
+        "type": "array",
+        "items_observed": [
+          {
+            "type": "object",
+            "properties": {
+              "ApplicationID": {
+                "type": "string"
+              },
+              "Enable": {
+                "type": "boolean"
+              },
+              "ID": {
+                "type": "string"
+              },
+              "HostName": {
+                "type": "string"
+              },
+              "Name": {
+                "type": "string"
+              },
+              "InternalHost": {
+                "type": "string"
+              },
+              "HostIPAddress": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "lan_ipaddressreserve": {
+      "http_status": 200,
+      "schema": {
+        "type": "array",
+        "items_observed": [
+          {
+            "type": "object",
+            "properties": {
+              "Yiaddr": {
+                "type": "string"
+              },
+              "Enable": {
+                "type": "boolean"
+              },
+              "Chaddr": {
+                "type": "string"
+              },
+              "ID": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "lan_server": {
+      "http_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "MinIP": {
+            "type": "string"
+          },
+          "MaxIP": {
+            "type": "string"
+          },
+          "DNSServerone": {
+            "type": "string"
+          },
+          "DHCPLeaseTime": {
+            "type": "integer"
+          },
+          "UseAllocatedWAN": {
+            "type": "string"
+          },
+          "AssociatedConnection": {
+            "type": "string"
+          },
+          "PassthroughMACAddress": {
+            "type": "string"
+          },
+          "PassthroughLease": {
+            "type": "integer"
+          },
+          "dnsmode": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "string"
+          },
+          "DNSServertwo": {
+            "type": "string"
+          },
+          "ServerEnable": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "wan": {
+      "http_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Enable": {
+            "type": "boolean"
+          },
+          "AccessType": {
+            "type": "string"
+          },
+          "ConnectionType": {
+            "type": "string"
+          },
+          "ConnectionStatus": {
+            "type": "string"
+          },
+          "IPv6ConnectionStatus": {
+            "type": "string"
+          },
+          "ServiceList": {
+            "type": "string"
+          },
+          "MTU": {
+            "type": "integer"
+          },
+          "linkdata": {
+            "type": "object",
+            "properties": {
+              "VLANId": {
+                "type": "integer"
+              },
+              "VLAN1p": {
+                "type": "integer"
+              },
+              "ID": {
+                "type": "string"
+              },
+              "VLANMode": {
+                "type": "string"
+              },
+              "VLANEnable": {
+                "type": "boolean"
+              }
+            }
+          },
+          "MSS": {
+            "type": "integer"
+          },
+          "LowerLayer": {
+            "type": "string"
+          },
+          "IPv6Enable": {
+            "type": "boolean"
+          },
+          "IPv4Enable": {
+            "type": "boolean"
+          },
+          "IPv6AddrType": {
+            "type": "string"
+          },
+          "IPv4AddrType": {
+            "type": "string"
+          },
+          "IPv6Addr": {
+            "type": "string"
+          },
+          "IPv4Addr": {
+            "type": "string"
+          },
+          "IPv6Gateway": {
+            "type": "string"
+          },
+          "IPv4Mask": {
+            "type": "string"
+          },
+          "WanType": {
+            "type": "string"
+          },
+          "PPPDialIpMode": {
+            "type": "string"
+          },
+          "IPv6PrefixList": {
+            "type": "string"
+          },
+          "PPPDialIpAddr": {
+            "type": "string"
+          },
+          "WANDHCPOption60": {
+            "type": "string"
+          },
+          "IPv4StaticDnsServers": {
+            "type": "string"
+          },
+          "DownBandwidth": {
+            "type": "integer"
+          },
+          "UpBandwidth": {
+            "type": "integer"
+          },
+          "IsDefault": {
+            "type": "integer"
+          },
+          "DownBandwidthMax": {
+            "type": "integer"
+          },
+          "MACColone": {
+            "type": "string"
+          },
+          "BandwidthTime": {
+            "type": "string"
+          },
+          "MACColoneEnable": {
+            "type": "boolean"
+          },
+          "UpBandwidthHistory": {
+            "type": "string"
+          },
+          "IsConfigured": {
+            "type": "integer"
+          },
+          "Username": {
+            "type": "string"
+          },
+          "Password": {
+            "type": "string"
+          },
+          "MRU": {
+            "type": "integer"
+          },
+          "APN": {
+            "type": "string"
+          },
+          "DialNum": {
+            "type": "string"
+          },
+          "IPv4StaticGateway": {
+            "type": "string"
+          },
+          "PPPTrigger": {
+            "type": "string"
+          },
+          "IPv4StaticMask": {
+            "type": "string"
+          },
+          "PPPIdletime": {
+            "type": "integer"
+          },
+          "IPv4StaticAddr": {
+            "type": "string"
+          },
+          "PPPoEServiceName": {
+            "type": "string"
+          },
+          "VLANData": {
+            "type": "array",
+            "items_observed": [
+              {
+                "type": "object",
+                "properties": {
+                  "VLANMode": {
+                    "type": "string"
+                  },
+                  "VLAN1p": {
+                    "type": "integer"
+                  },
+                  "VLANId": {
+                    "type": "integer"
+                  },
+                  "ID": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "DownBandwidthHistory": {
+            "type": "string"
+          },
+          "IPv6AddrSet": {
+            "type": "string"
+          },
+          "UpBandwidthMax": {
+            "type": "integer"
+          },
+          "IPv6AddrPrefixLen": {
+            "type": "integer"
+          },
+          "IPv6DnsServers": {
+            "type": "string"
+          },
+          "DNSOverrideAllowed": {
+            "type": "boolean"
+          },
+          "IPv4DnsServers": {
+            "type": "string"
+          },
+          "AccessStatus": {
+            "type": "string"
+          },
+          "IPv4Gateway": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "string"
+          },
+          "PPPAuthMode": {
+            "type": "string"
+          },
+          "NATType": {
+            "type": "integer"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "Alias": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ipv6_wan": {
+      "http_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "X_IPv6DNSServerTwo": {
+            "type": "string"
+          },
+          "X_IPv6AddressingType": {
+            "type": "string"
+          },
+          "X_IPv6Address": {
+            "type": "string"
+          },
+          "X_IPv6DefaultGateway": {
+            "type": "string"
+          },
+          "X_IPv6DNSOverrideAllowed": {
+            "type": "boolean"
+          },
+          "ID": {
+            "type": "string"
+          },
+          "X_IPv6DNSEnabled": {
+            "type": "boolean"
+          },
+          "X_IPv6PrefixLength": {
+            "type": "integer"
+          },
+          "X_IPv6DNSServerOne": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ipv6_lan": {
+      "http_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "WanLinkAddr": {
+            "type": "string"
+          },
+          "SLAAC": {
+            "type": "object",
+            "properties": {
+              "SLAAC_PrefixLength": {
+                "type": "integer"
+              },
+              "SLAAC_Preferredlifetime": {
+                "type": "integer"
+              },
+              "SLAAC_Validlifetime": {
+                "type": "integer"
+              },
+              "SLAAC_ID": {
+                "type": "string"
+              },
+              "SLAAC_RouterAdvertisementEnable": {
+                "type": "boolean"
+              },
+              "SLAAC_UseAllocatedWAN": {
+                "type": "string"
+              },
+              "SLAAC_Prefix": {
+                "type": "string"
+              }
+            }
+          },
+          "LanLinkAddr": {
+            "type": "string"
+          },
+          "DHCP6s": {
+            "type": "object",
+            "properties": {
+              "DHCP6s_ID": {
+                "type": "string"
+              },
+              "DHCP6s_DHCPServerEnable": {
+                "type": "boolean"
+              },
+              "DHCP6s_UseAllocatedWAN": {
+                "type": "string"
+              },
+              "DHCP6s_Prefix": {
+                "type": "string"
+              },
+              "DHCP6s_PrefixLength": {
+                "type": "integer"
+              },
+              "DHCP6s_Preferredlifetime": {
+                "type": "integer"
+              },
+              "DHCP6s_Validlifetime": {
+                "type": "integer"
+              },
+              "DHCP6s_Dhcp6sDNSServerOne": {
+                "type": "string"
+              },
+              "DHCP6s_Dhcp6sDNSServerTwo": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "applicationitems_selected_by_ID": {
+    "tested_parent_count": 2,
+    "schemas": [
+      {
+        "type": "array",
+        "items_observed": [
+          {
+            "type": "object",
+            "properties": {
+              "InternalPort": {
+                "type": "integer"
+              },
+              "ID": {
+                "type": "string"
+              },
+              "Protocol": {
+                "type": "string"
+              },
+              "ExternalPort": {
+                "type": "integer"
+              },
+              "InternalPortEnd": {
+                "type": "integer"
+              },
+              "ExternalPortEnd": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
