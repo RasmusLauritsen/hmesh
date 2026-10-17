@@ -42,8 +42,10 @@ def main():
         time.sleep(0.2)
     report = {'observed_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
               'base_url': router.base, 'endpoints': observations}
-    Path('observations.json').write_text(json.dumps(report, indent=2) + '\n')
-    print('Saved observations.json (types and result codes only)')
+    output = Path(__file__).resolve().parent / 'docs' / 'observations.json'
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2) + '\n')
+    print('Saved docs/observations.json (types and result codes only)')
 
 
 if __name__ == '__main__':

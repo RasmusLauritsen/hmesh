@@ -1,19 +1,19 @@
-# Huawei Mesh 3 read-only API
+# Huawei Mesh 3 CLI
 
-Unofficial, locally verified documentation for a two-unit Huawei Mesh 3 installation.
+An unofficial CLI project for Huawei Mesh 3 routers. Currently includes a read-only Python reference client and locally verified API documentation for a two-unit installation. A Go CLI with interactive menus and automation-friendly commands is planned, not yet implemented; its executable name is undecided.
 
 - Base URL: `https://192.168.50.1`
 - Primary hardware: `VER.A`; firmware: `2.0.0.512`; HarmonyOS: `2.0.0`
 - Discovery: October 17, 2026 (UTC timestamps in the observation file)
-- Initial discovery used only retrieval requests and authentication. A subsequent explicitly authorized DHCP reservation create test and deletion succeeded; the synthetic entry has been removed (see `WRITE_API.md`). No other configuration changes, scans, speed tests, firmware checks/downloads, reboots, or diagnostic jobs were requested.
+- Initial discovery used only retrieval requests and authentication. A subsequent explicitly authorized DHCP reservation create test and deletion succeeded; the synthetic entry has been removed (see [docs/WRITE_API.md](docs/WRITE_API.md)). No other configuration changes, scans, speed tests, firmware checks/downloads, reboots, or diagnostic jobs were requested.
 
 ## Files
 
-- [API.md](API.md): authentication, endpoint catalog, response semantics, limitations.
-- [WRITE_API.md](WRITE_API.md): port-forwarding, DHCP-reservation and DNS write flows; **DHCP create/delete verified**, other writes untested.
-- [dhcp-test-result.json](dhcp-test-result.json): synthetic reservation details and create/readback verification; no credentials or original configuration values.
-- [write-exploration.json](write-exploration.json): additional value-free authenticated GET shapes for that exploration.
-- [observations.json](observations.json): anonymous/authenticated HTTP outcomes and observed field/type shapes. **No response values**, except numeric result codes; empty arrays have unknown item shapes. This is an observation format, not JSON Schema or an exhaustive API contract.
+- [docs/API.md](docs/API.md): authentication, endpoint catalog, response semantics, limitations.
+- [docs/WRITE_API.md](docs/WRITE_API.md): port-forwarding, DHCP-reservation and DNS write flows; **DHCP create/delete verified**, other writes untested.
+- [docs/dhcp-test-result.json](docs/dhcp-test-result.json): synthetic reservation details and create/readback verification; no credentials or original configuration values.
+- [docs/write-exploration.json](docs/write-exploration.json): additional value-free authenticated GET shapes for that exploration.
+- [docs/observations.json](docs/observations.json): anonymous/authenticated HTTP outcomes and observed field/type shapes. **No response values**, except numeric result codes; empty arrays have unknown item shapes. This is an observation format, not JSON Schema or an exhaustive API contract.
 - [router_api.py](router_api.py): standard-library Python client with an explicit GET allowlist and POST restricted to authentication.
 - [inspect_api.py](inspect_api.py): repeats the reviewed GET inventory, anonymously and authenticated, and regenerates observations.
 
