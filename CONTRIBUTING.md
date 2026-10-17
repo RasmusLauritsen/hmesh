@@ -55,11 +55,11 @@ Renovate performs PR merges itself (`platformAutomerge: false`), so GitHub's **A
 
 ## Releases
 
-Release Please maintains a release PR with a version bump and `CHANGELOG.md` as changes land on `main`. Merge that PR when ready to publish; it creates the `v`-prefixed tag and GitHub release, then calls `.github/workflows/release.yml` to build and upload binaries. Release PRs are not automerged.
+Release Please maintains a release PR with a version bump and `CHANGELOG.md` as changes land on `main`. Merge that PR when ready to publish; it creates the `v`-prefixed tag and GitHub release, and the tag push triggers `.github/workflows/release.yml` to build and upload binaries. Release PRs are not automerged.
 
 Use Conventional Commit titles when squash-merging PRs: `fix:` produces a patch bump (`v0.1.0` → `v0.1.1`), `feat:` a minor bump (`v0.1.0` → `v0.2.0`). Before v1, breaking changes (`feat!:` or a `BREAKING CHANGE:` footer) also bump the minor version. Renovate uses `fix(deps):` so dependency updates trigger patch releases. Multiple changes are batched, with the largest applicable bump winning; `chore:` and `docs:` alone do not trigger releases.
 
-The automation uses only `GITHUB_TOKEN`, with **Allow GitHub Actions to create and approve pull requests** enabled in repository Settings → Actions → General. Since token-created PRs and tags do not trigger other workflows automatically, Release Please explicitly dispatches the test and secret-scanning workflows for its PR branch and calls the release workflow after creating a release. No PAT is needed, and required CI checks remain enforced.
+Release Please uses a short-lived GitHub App installation token, scoped to this repository with Contents, Issues, and Pull requests read/write permissions. Install the app on this repository, set the Actions variable `RELEASE_APP_ID` to its numeric App ID, and store its PEM private key in the Actions secret `RELEASE_APP_PRIVATE_KEY`. Never commit the key. App-created PRs run CI automatically without the approval gate imposed on `GITHUB_TOKEN`-created PRs, and app-created tags trigger the release workflow normally. No PAT is needed, and required CI checks remain enforced.
 
 Manual semantic-version tags still trigger the release workflow directly. Formatting, race-enabled tests, and vet must pass before GoReleaser builds Linux, macOS, and Windows binaries for AMD64 and ARM64 and uploads archives plus `checksums.txt` to GitHub Releases. Prerelease tags such as `v0.2.0-rc.1` produce prereleases.
 
