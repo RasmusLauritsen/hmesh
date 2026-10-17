@@ -45,6 +45,14 @@ git config --local core.hooksPath .githooks
 
 If you already have hooks configured, integrate rather than replace them. See [SECURITY.md](SECURITY.md) for manual scans, detector limitations, safe router-output handling, and credential rotation.
 
+## Dependency updates
+
+Dependency updates use the [hosted Renovate GitHub App](https://github.com/apps/renovate), configured in [`renovate.json`](renovate.json). To activate it, install the app for `RasmusLauritsen/huawei-mesh3-cli` and merge the configuration into the default branch. No self-hosted workflow or repository token is needed.
+
+Renovate updates Go modules (including indirect dependencies) and GitHub Actions. Minor, patch, and pin/digest updates automerge after CI passes, including pre-1.0 updates, which can contain breaking changes. Major updates remain open for manual review without a separate Dependency Dashboard approval step.
+
+Renovate performs PR merges itself (`platformAutomerge: false`), so GitHub's **Allow auto-merge** setting is not required. Keep CI enabled and do not enable `ignoreTests`. Branch protection requiring review on every PR will also block non-major automerges; the app still needs permission to merge under the repository's rules.
+
 ## Releases
 
 Pushing a semantic-version tag such as `v0.1.0` runs `.github/workflows/release.yml`. Formatting, race-enabled tests, and vet must pass before GoReleaser builds Linux, macOS, and Windows binaries for AMD64 and ARM64 and uploads archives plus `checksums.txt` to GitHub Releases. Prerelease tags such as `v0.2.0-rc.1` produce prereleases.
