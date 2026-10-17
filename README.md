@@ -1,204 +1,115 @@
 # hmesh — Huawei Mesh 3 CLI
 
-An unofficial Go CLI with a **Huh interactive menu** and **Cobra commands for automation**. No BWS dependency: use a hidden password prompt, OS keyring, stdin, environment variable, or protected password file. Optional BWS support is available.
+An unofficial CLI for inspecting a Huawei Mesh 3 router and managing DHCP reservations. Use the interactive menu or explicit commands for scripts and automation.
 
-Built from locally verified API discovery on a two-unit Huawei Mesh 3 installation, firmware `2.0.0.512`, HarmonyOS `2.0.0`, hardware `VER.A`. Not affiliated with or supported by Huawei. Other firmware/models may behave differently.
+Based on API discovery on a two-unit installation running firmware `2.0.0.512`, HarmonyOS `2.0.0`, hardware `VER.A`. Other firmware/models may behave differently. Not affiliated with or supported by Huawei.
 
 ## Install
 
-### Download a release
+Download an archive from [GitHub Releases](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases), extract it, and put `hmesh` (`hmesh.exe` on Windows) on your PATH. The repository is private; sign in with an account that has access.
 
-Prebuilt archives are published on [GitHub Releases](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases) for **Linux, macOS, and Windows**, each in **AMD64** and **ARM64** variants. This is a private repository: sign in with an account that has access. No Go installation or BWS installation is required to run a release binary unless you choose the optional BWS password provider.
-
-Choose `amd64` for Intel/AMD 64-bit processors or `arm64` for Apple Silicon/64-bit ARM systems. macOS archives use the Go platform name `darwin`. ARM32/ARMv7 builds are not included. Linux/macOS archives are `.tar.gz`; Windows archives are `.zip` and contain `hmesh.exe`. Each archive also includes this README and the API documentation. Binaries are not Developer ID/Authenticode signed; your OS may display a trust warning.
-
-Example using an authenticated GitHub CLI on Linux AMD64 (substitute the desired version and platform):
-
-```bash
-gh release download v0.1.0 --repo RasmusLauritsen/huawei-mesh3-cli \
-  --pattern hmesh_0.1.0_linux_amd64.tar.gz --pattern checksums.txt
-# Verify the downloaded archive against its published SHA-256 checksum:
-grep ' hmesh_0.1.0_linux_amd64.tar.gz$' checksums.txt | sha256sum --check
-tar -xzf hmesh_0.1.0_linux_amd64.tar.gz
-./hmesh --version
-```
-
-Verify the checksum for your chosen archive before running it (`shasum -a 256` on macOS, or `Get-FileHash -Algorithm SHA256` in PowerShell). Checksums detect corruption; they are not an independent publisher signature.
-
-### Build from source
-
-Requires **Go 1.26 or newer**. This repository is private; cloning requires GitHub access.
-
-```bash
-git clone https://github.com/RasmusLauritsen/huawei-mesh3-cli.git
-cd huawei-mesh3-cli
-go build -o bin/hmesh .
-./bin/hmesh --help
-
-# Alternatively, build directly into your user-local binary directory:
-mkdir -p "$HOME/.local/bin"
-go build -o "$HOME/.local/bin/hmesh" .
-```
-
-Examples below assume `hmesh` is on your PATH: add the checkout's `bin/` or `$HOME/.local/bin` to PATH as appropriate. Plain `go install .` uses the module's name (`huawei-mesh3-cli`), not `hmesh`, so use one of the explicit output paths above. Builds are also possible for other Go-supported platforms, but OS-keyring availability and terminal behavior vary; automated tests currently run on Linux.
+Releases support Linux, macOS (`darwin`), and Windows on AMD64 (Intel/AMD) and ARM64 (including Apple Silicon). Verify the archive against the release's `checksums.txt` before running it. Binaries are unsigned, so your OS may display a trust warning.
 
 ## Connect
 
-The factory-default URL is **`https://192.168.3.1`**, username `admin`. Override with `--router`; the installation used for API discovery has a custom address, `https://192.168.50.1`.
+The default router is `https://192.168.3.1`, username `admin`. Run `hmesh` to open the menu and enter your password at a hidden prompt.
 
 ```bash
-# Interactive menu; hidden password prompt unless another source is available.
-hmesh
-
-# Custom router, explicitly trusting its local self-signed certificate:
-hmesh --router https://192.168.50.1 --insecure
-
-# Prefer TLS certificate validation with a trusted PEM certificate/CA:
+# Custom router with a trusted certificate/CA:
 hmesh --router https://192.168.50.1 --ca-cert /path/to/router-ca.pem status
 
-# Optional: verify and save the password to your OS keyring.
+# Alternatively, explicitly trust a self-signed router on your trusted LAN:
+hmesh --router https://192.168.50.1 --insecure
+
+# Optional: verify and save credentials to your OS keyring.
 hmesh --router https://192.168.50.1 --insecure auth login
 ```
 
-`auth login` saves the router URL, username, and optional CA file path to the OS config directory's `hmesh/config.json`. **Passwords are saved only to the OS keyring**, not that file. `--config FILE` overrides its location. Explicit `--router`, `--username`, and `--ca-cert` override saved values. `--insecure` is deliberately **not saved**: pass it each time when required.
+TLS verification is enabled by default. `--insecure` disables server identity verification and is **never saved**; pass it each time if needed.
 
-OS-keyring integration uses macOS Keychain, Windows Credential Manager, or Linux Secret Service. Keyring lookup and `auth login`/`auth logout` require an interactive terminal and are disabled in unattended mode, since OS keyrings may display their own unlock prompts. The CLI bounds its wait for keyring operations by `--timeout` and responds to cancellation; the underlying OS operation may finish separately. On headless Linux use stdin, environment, or a protected file instead. `auth logout` removes the locally stored credential for the selected router/user; it does not log out router sessions or delete the config file.
+`auth login` saves the router URL, username, and optional CA path in the OS config directory's `hmesh/config.json`; passwords go only into the OS keyring. Explicit connection flags override saved values; `--config FILE` selects another config file. `auth logout` removes the selected router/user's stored password, not the config or router sessions. Keyring access requires an interactive terminal.
 
 ### Password sources
 
-Precedence:
+The CLI uses the first available source:
 
-1. Explicit `--password-stdin`, `--password-file FILE`, **or** `--bws-secret KEY` (mutually exclusive).
+1. `--password-stdin`, `--password-file FILE`, or `--bws-secret KEY` (mutually exclusive).
 2. `HMESH_PASSWORD` environment variable.
-3. OS keyring entry for the selected router URL and username (interactive only).
-4. Hidden terminal prompt, if interactive.
+3. OS keyring (interactive only).
+4. Hidden terminal prompt.
 
 ```bash
-# Integrate any secret manager; no password appears in command arguments:
 your-secret-manager read router-password |
   hmesh --password-stdin --non-interactive devices list --output json
 
-# Mounted secret file: chmod 600 on Unix; regular files only.
 hmesh --password-file /run/secrets/router-password --non-interactive status
-
-# Existing BWS users can opt in:
-hmesh --bws-secret router_password --router https://192.168.50.1 --insecure status
 ```
 
-Stdin/files accept one nonempty line, preserving spaces and removing a trailing LF/CRLF, up to 64 KiB including that terminator. A stdin producer must **close the stream after writing**: input is read until EOF, and the router request timeout does not limit password input. There is deliberately **no `--password VALUE` flag**. Avoid entering passwords directly in shell history. Environment variables can leak through inherited processes or diagnostics; prefer a secret-manager pipe or a protected mounted file for agents. BWS lookup currently loads accessible secrets into process memory and selects exactly one matching key; no values are forwarded to output.
+Password files must be protected (`chmod 600` on Unix). Stdin/files accept one nonempty line, up to 64 KiB; stdin must close after writing. Password input is not limited by the router request timeout. There is no `--password VALUE` flag; prefer a secret-manager pipe or protected file over environment variables. BWS is optional and requires an authenticated `bws` installation.
 
 ## Commands
 
-```bash
-hmesh status
-hmesh devices list --output json
-hmesh mesh topology --output json
-hmesh dhcp list
-hmesh dhcp reservations list
-hmesh dhcp reservations list --output json
-hmesh dns show --output json
-hmesh port-forward list --output json
-```
+| Command | Purpose |
+|---|---|
+| `hmesh status` | Router hardware and firmware |
+| `hmesh devices list` | Connected and known devices |
+| `hmesh mesh topology` | Mesh topology |
+| `hmesh dhcp list` | DHCP reservations; alias for `dhcp reservations list` |
+| `hmesh dns show` | WAN IPv4, DHCP-advertised, and WAN IPv6 DNS |
+| `hmesh port-forward list` | Forwarding mappings, not separate protocol/port definitions |
 
-`dns show` is read-only and selects WAN IPv4, DHCP-advertised, and WAN IPv6 DNS fields; it does not inspect IPv6 LAN DHCP/RA DNS. `port-forward list` returns mapping records, **not** the separate protocol/port definitions. DNS and port-forward writes are not implemented.
+Add `--output json` for machine-readable output. Reservation lists default to an IP-sorted table; other reads default to indented JSON. DNS and port-forward commands are read-only; IPv6 LAN DHCP/RA DNS is not included.
 
-### DHCP reservations
-
-`hmesh dhcp list` is shorthand for `hmesh dhcp reservations list`; both accept the same global options. Reservation lists use a human-readable table by default, sorted numerically by IPv4 address. Internal IDs are hidden; empty lists display `No DHCP reservations found.` The menu's list view uses the same format. Use `--output json` to retain the full JSON array, including IDs, in router response order.
-
-```text
-IP ADDRESS       MAC ADDRESS        ENABLED
-192.168.3.100    02:00:00:00:00:42   yes
-192.168.3.101    02:00:00:00:00:43   no
-
-2 reservations
-```
+### Manage DHCP reservations
 
 ```bash
-# Preview only: authenticates and reads, but sends no configuration POST.
+# Preview: authenticates and reads, but sends no configuration POST.
 hmesh dhcp reservations create \
-  --mac 02:00:00:00:00:42 --ip 192.168.3.100 --dry-run --output json
+  --mac 02:00:00:00:00:42 --ip 192.168.3.100 --dry-run
 
-# Apply and verify (replace these illustrative values with your device's MAC/IP).
+# Apply an approved change (replace the example MAC/IP).
 hmesh dhcp reservations create \
-  --mac 02:00:00:00:00:42 --ip 192.168.3.100 \
-  --yes --non-interactive --output json
+  --mac 02:00:00:00:00:42 --ip 192.168.3.100 --yes --non-interactive
 
-hmesh dhcp reservations update \
-  --mac 02:00:00:00:00:42 --ip 192.168.3.101 --dry-run
-
-hmesh dhcp reservations update \
-  --mac 02:00:00:00:00:42 --enabled=false --yes --non-interactive
-
-hmesh dhcp reservations delete \
-  --mac 02:00:00:00:00:42 --yes --non-interactive --output json
+hmesh dhcp reservations update --mac 02:00:00:00:00:42 --ip 192.168.3.101 --dry-run
+hmesh dhcp reservations update --mac 02:00:00:00:00:42 --enabled=false --dry-run
+hmesh dhcp reservations delete --mac 02:00:00:00:00:42 --dry-run
 ```
 
-- Create defaults to enabled; update preserves enabled state unless `--enabled` is supplied. Update requires `--ip` and/or `--enabled`. MAC identifies an existing entry; changing the MAC is not supported.
-- An identical create, unchanged update, or delete of an absent MAC returns `action: "unchanged"` without a POST. Create with different settings for an existing MAC fails: use update instead.
-- Validation checks unicast MAC, IPv4, actual LAN subnet, network/broadcast/router addresses, pool membership, duplicate reservations, and conflicting router host records. Outside-pool reservations are intentionally unsupported pending firmware verification. This cannot detect every silent/static-IP device.
-- A disable-only update can retain an existing problematic/outside-pool address so it can be deactivated; it does not require allocation validation. Snapshot checks and post-write verification still apply. Changing the address, even when also disabling, uses full validation.
-- Interactive writes ask for confirmation. Without a usable terminal, writes require `--yes`. `--dry-run` takes precedence over `--yes` and affects reservation operations only.
-- Before writing, the CLI rechecks reservations and DHCP-server settings for concurrent changes and refreshes applicable address/host checks. No-op applies also reread state before reporting it verified. This reduces, but cannot eliminate, races; the router has no observed atomic transaction API.
-- Each operation sends **at most one configuration POST**; there are no automatic retries or rollback writes. Readback verifies the intended change, other reservations, and unchanged DHCP-server settings. A lost/rejected/unverifiable write response is reported as an uncertain outcome: inspect state before retrying.
-- Reservation creation/deletion was previously live-verified using a synthetic entry that was removed afterward. The Go implementation is mock-tested; live Go writes and DHCP update behavior have **not** been tested on the router. A successful API readback is not proof of actual DHCP lease acquisition.
+- Create defaults to enabled. Update identifies an entry by MAC and requires `--ip` and/or `--enabled`; changing its MAC is not supported. Identical requests return `action: "unchanged"` without a write; creating an existing MAC with different settings fails.
+- Addresses are checked against the LAN subnet, DHCP pool, reservations, and known hosts. Outside-pool allocations are unsupported; unknown static-IP devices can still conflict. A disable-only update can retain an existing invalid/outside-pool address.
+- Writes ask for confirmation, or require `--yes` without an interactive terminal. `--dry-run` always takes precedence and applies only to reservation changes.
+- The CLI rechecks state before writing and verifies it afterward. Each operation sends at most one configuration POST, with **no automatic retries or rollback**. Concurrent-change checks are not atomic. If the outcome is uncertain, inspect `hmesh dhcp reservations list` before retrying.
 
-Go authentication (including stdin password input), status/device/reservation reads, and a create **dry-run** were also smoke-tested against the custom-address router without configuration writes.
+**Write support is experimental:** historical API tests verified reservation creation/deletion and cleanup, but CLI writes and reservation updates have not been live-tested. Successful readback does not prove a device acquired its DHCP lease. See [write API evidence and limitations](docs/WRITE_API.md).
 
-## Automation contract
+## Automation
 
-Use explicit subcommands, `--non-interactive`, `--output json`, and `--yes` for approved writes. Invoking `hmesh` without a subcommand opens a one-action menu and exits after the selected operation; without a terminal it fails rather than hanging. Password input via stdin disables other CLI prompts.
+Use explicit subcommands with `--non-interactive --output json`, plus `--yes` for approved writes. Without a subcommand, `hmesh` opens a one-action menu; without a terminal it fails. `--password-stdin` disables other CLI prompts.
 
-- With `--output json`, successful data-producing subcommands emit one compact JSON value on stdout. Default `text` output uses a table for DHCP reservation lists and indented JSON for other operations. Interactive Quit succeeds without output. Help/version are human-readable text, not part of the JSON data contract.
-- Errors: stderr only; JSON error envelope when `--output json` is selected. No success output on an uncertain write; inspect readback via `dhcp reservations list`.
-- Mutation results include `operation`, `action`, `reservation` (when present), `dry_run`, and `verified`. Plans have `dry_run: true`, `verified: false`; successful applies have `dry_run: false`, `verified: true`. `unchanged` means the desired state was observed without a write, not that a live lease was checked.
-- Known password, cookie, CSRF, token, session-ID and authorization fields are filtered recursively (case-insensitive). This is not comprehensive secret detection. Device names, MAC/IP addresses, serial numbers and configuration are still private data—do not publish raw output casually.
+- Successful data commands emit one compact JSON value on stdout. Errors go to stderr, as a JSON error envelope with `--output json`. Help/version remain plain text.
+- Mutation results include `operation`, `action`, `reservation` (when present), `dry_run`, and `verified`. Dry-runs are unverified; successful applies and verified no-ops are verified. An uncertain write produces no success output.
+- Known credential/session fields are filtered, but output still contains private device and network data. See [security guidance](https://github.com/RasmusLauritsen/huawei-mesh3-cli/blob/main/SECURITY.md) before sharing it.
 
 | Exit code | Meaning |
 |---|---|
-| 0 | Success, including a dry-run or idempotent no-op |
-| 1 | Other/unclassified error |
-| 2 | Usage, configuration, canceled menu/reservation/confirmation prompt, or output error |
-| 3 | Credential/authentication error, including canceled password entry |
-| 4 | Connection, TLS or timeout error outside login challenge/proof |
-| 5 | Router HTTP/API/response error before a write |
-| 6 | Conflict, failed precondition, or concurrent configuration change before a write |
-| 7 | Write attempted but response and/or resulting state not fully confirmed; inspect before retrying |
+| 0 | Success, dry-run, or no-op |
+| 1 | Unclassified error |
+| 2 | Usage/configuration/output error or canceled menu/confirmation |
+| 3 | Credential/authentication error or canceled password entry |
+| 4 | Connection/TLS/timeout error outside login challenge/proof |
+| 5 | Router API/response error before a write |
+| 6 | Conflict or failed precondition before a write |
+| 7 | Write outcome uncertain; inspect current state before retrying |
 
-Global options are listed by `hmesh --help`. Default request timeout is 20 seconds (`--timeout 30s` to override). Each invocation uses an in-memory cookie jar; no sessions are persisted. Login failures are not automatically retried. A canceled request during a write can still have reached the router; exit 7 requires checking current state.
+See `hmesh --help` for all options. The per-request timeout defaults to 20 seconds (`--timeout 30s` to override). Sessions are not persisted and login failures are not retried. A canceled write may still reach the router.
 
-## Development and API references
+## API reference
 
-```bash
-go test -race ./...
-go vet ./...
-python3 -m unittest discover -s tools/reference -p 'test_*.py'
-```
+- [Read API and authentication](docs/API.md): endpoints, response shapes, and Huawei-modified SCRAM-SHA256.
+- [Write API](docs/WRITE_API.md): payloads, safety constraints, and verification evidence.
+- [Read observations](docs/observations.json), [write observations](docs/write-exploration.json), and [historical DHCP test](docs/dhcp-test-result.json): sanitized discovery records.
 
-### Secret scanning
+The firmware API is undocumented. Configuration writes can disrupt clients; keep router administration restricted to trusted networks.
 
-Gitleaks scans pushes and pull requests, including all fetched Git history.
-Install Gitleaks **8.30.1** and enable the local staged-content hook before committing:
-
-```bash
-git config --local core.hooksPath .githooks
-```
-
-If you already have hooks configured, integrate rather than replace them.
-See [SECURITY.md](SECURITY.md) for manual scans, detector limitations, safe router
-output handling, and what to rotate if a secret leaks.
-
-### Release automation
-
-Pushing a semantic-version tag such as `v0.1.0` runs `.github/workflows/release.yml`: formatting, race-enabled Go tests, and vet must pass before GoReleaser builds all six platform/architecture combinations and uploads archives plus `checksums.txt` to a GitHub Release. Release binaries report the tag's version through `hmesh --version`; ordinary source builds report a development version.
-
-Release artifacts contain binaries and documentation, not router credentials, local config, cookies or live router output. Builds use `CGO_ENABLED=0` and do not contact a router or BWS. Cross-compilation does not establish that terminal/keyring behavior was runtime-tested on every target; the automated tests run on Linux. Publishing a prerelease tag such as `v0.2.0-rc.1` marks its GitHub release as a prerelease.
-
-- [docs/API.md](docs/API.md): verified read APIs and Huawei-modified SCRAM-SHA256 authentication.
-- [docs/WRITE_API.md](docs/WRITE_API.md): write-flow evidence, limitations, and historical DHCP create/delete test.
-- [docs/observations.json](docs/observations.json): original anonymous/authenticated response shapes, without private values.
-- [docs/write-exploration.json](docs/write-exploration.json): additional field/type observations for write exploration.
-- [docs/dhcp-test-result.json](docs/dhcp-test-result.json): historical synthetic reservation test and cleanup receipt.
-- [tools/reference/](tools/reference/): original BWS-based Python discovery scripts, retained for protocol research and optional inventory regeneration. Their default URL is the custom discovery address `https://192.168.50.1`, **not** Huawei's factory default. They are not required by the Go CLI or release builds; CI runs offline output-safety tests only. Duplicate protocol tests have been retired; the Go tests retain the vendor-JavaScript SCRAM fixture and protocol coverage. See the reference tools README for usage and TLS warnings.
-
-TLS verification is enabled by default in the Go CLI. Obtain trusted certificates through a trusted local channel; `--insecure` disables server identity verification and should only be used knowingly on a trusted LAN. The firmware API is undocumented; writes can disrupt clients. Protect router administration from untrusted networks.
+For development and protocol research, see [CONTRIBUTING.md](CONTRIBUTING.md).
