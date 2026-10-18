@@ -2,7 +2,9 @@ package cli
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/netip"
 	"sort"
 	"strings"
@@ -11,6 +13,58 @@ import (
 
 	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
 )
+
+// printText normalizes structs as well as API responses, then renders every
+// field without relying on a particular router firmware's response schema.
+func printText(out io.Writer, value any) error {
+	b, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	var normalized any
+	decoder := json.NewDecoder(bytes.NewReader(b))
+	decoder.UseNumber()
+	if err := decoder.Decode(&normalized); err != nil {
+		return err
+	}
+	table := tabwriter.NewWriter(out, 0, 4, 2, ' ', 0)
+	var render func(any, string)
+	render = func(v any, prefix string) {
+		switch v := v.(type) {
+		case map[string]any:
+			keys := make([]string, 0, len(v))
+			for key := range v {
+				keys = append(keys, key)
+			}
+			sort.Strings(keys)
+			if len(keys) == 0 {
+				fmt.Fprintf(table, "%s\t(none)\n", tableCell(prefix))
+			}
+			for _, key := range keys {
+				label := key
+				if prefix != "" {
+					label = prefix + "." + key
+				}
+				render(v[key], label)
+			}
+		case []any:
+			if len(v) == 0 {
+				fmt.Fprintf(table, "%s\t(none)\n", tableCell(prefix))
+			}
+			for i, item := range v {
+				render(item, fmt.Sprintf("%s[%d]", prefix, i+1))
+			}
+		default:
+			text := fmt.Sprint(v)
+			if v == nil {
+				text = "-"
+			}
+			fmt.Fprintf(table, "%s\t%s\n", tableCell(prefix), tableCell(text))
+		}
+	}
+	render(normalized, "")
+	return table.Flush()
+}
 
 // printReservations only formats the text view; it does not reorder or alter
 // the original response used by the JSON output contract.
