@@ -58,6 +58,8 @@ TLS verification is enabled by default. `--insecure` disables server identity ve
 
 `auth login` saves the router URL, username, and optional CA path in the OS config directory's `hmesh/config.json`; passwords go only into the OS keyring. Explicit connection flags override saved values; `--config FILE` selects another config file. `auth logout` removes the selected router/user's stored password, not the config or router sessions. Keyring access requires an interactive terminal.
 
+Commands automatically log out their own router session when finished, including on errors or Ctrl+C. This avoids filling the router's 10-user session limit. Cleanup makes one attempt with a timeout of at most five seconds; if it cannot be confirmed, a warning goes to stderr without changing the command's result. Forced termination (for example, SIGKILL) or a lost connection can still leave a session until it expires. Other users' sessions are never terminated.
+
 ### Password sources
 
 The CLI uses the first available source:

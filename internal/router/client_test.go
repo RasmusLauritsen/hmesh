@@ -33,7 +33,7 @@ func TestHuaweiJavaScriptFixture(t *testing.T) {
 }
 
 func TestLoginCookieAndSignatures(t *testing.T) {
-	for _, bad := range []string{"", "nonce", "server", "rsa", "challenge"} {
+	for _, bad := range []string{"", "nonce", "server", "rsa", "challenge", "response"} {
 		t.Run(bad, func(t *testing.T) {
 			var first, final string
 			posts := 0
@@ -86,6 +86,10 @@ func TestLoginCookieAndSignatures(t *testing.T) {
 						rsaSig = make([]byte, 32)
 					}
 					http.SetCookie(w, &http.Cookie{Name: "SessionID_R3", Value: "fake-session", Path: "/", Secure: true})
+					if bad == "response" {
+						w.Write([]byte(`not JSON`))
+						return
+					}
 					json.NewEncoder(w).Encode(map[string]any{"err": 0, "rsan": "a1b2c3d4", "serversignature": hex.EncodeToString(sig), "rsapubkeysignature": hex.EncodeToString(rsaSig)})
 				case "/api/system/deviceinfo":
 					cookie, err := r.Cookie("SessionID_R3")
@@ -104,6 +108,10 @@ func TestLoginCookieAndSignatures(t *testing.T) {
 				t.Fatal(err)
 			}
 			err = c.Login(context.Background(), "fake-password")
+			wantSession := bad != "nonce" && bad != "challenge"
+			if c.loggedIn != wantSession {
+				t.Fatalf("cleanup tracking=%v, want %v", c.loggedIn, wantSession)
+			}
 			if bad == "" {
 				if err != nil {
 					t.Fatal(err)

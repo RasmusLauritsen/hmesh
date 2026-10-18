@@ -190,4 +190,16 @@ The endpoint map is shared across product variants; listing an alias does **not*
 
 During the initial read-only discovery, not invoked: Wi-Fi scans (`wifiscan`), speed tests, pairing, active diagnostic commands, exports/backups, password decryption, firmware-check/download/start commands, logout, reset, reboot, configuration POSTs, cloud/app APIs, or requests directly to the secondary unit. A later explicitly approved DHCP create/delete test did send configuration POSTs, as documented in [WRITE_API.md](WRITE_API.md). No parameter fuzzing was performed. Primary-unit aggregation provides the documented view of both units.
 
+### Session cleanup
+
+The firmware's `/components/head/head.js` implements logout through
+`commonPost({name: 'user_logout', writeOnly: true})`. `/js/api.js` maps this to
+`system/user_logout`, and `/vuex/store.js` supplies the current CSRF envelope
+without a `data` field. The CLI follows this evidence with
+`POST /api/system/user_logout`, using only its own in-memory cookies and current
+CSRF tokens. Logout releases the CLI session; it is not a router configuration
+write and does not clear locally saved keyring credentials. Lifecycle handling
+is covered by offline mock-router tests, including command failures, cancellation,
+and logout failures. No additional live login was used to test this change.
+
 There is no verified CPU, RAM, temperature, per-link mesh signal, or per-link backhaul-rate API in this catalog. Do not label unrelated fields as those metrics. Anonymous 200 outcomes are observations only, not a completed security assessment; some public responses include device/firmware metadata and potentially sensitive fields. Keep management access LAN-restricted.

@@ -42,6 +42,7 @@ type Client struct {
 	username string
 	http     *http.Client
 	csrf     map[string]string
+	loggedIn bool
 }
 
 // NormalizeURL excludes credentials, query strings and paths from credential keys.
@@ -219,9 +220,18 @@ func (c *Client) Login(ctx context.Context, password string) error {
 		return err
 	}
 	v, err = c.json(ctx, "POST", "/api/system/user_login_proof", map[string]any{"data": map[string]string{"clientproof": hex.EncodeToString(proof), "finalnonce": final}, "csrf": c.csrf})
+	// Even a malformed response can have allocated a session via Set-Cookie.
+	u, _ := url.Parse(c.base)
+	for _, cookie := range c.http.Jar.Cookies(u) {
+		if cookie.Name == "SessionID" || strings.HasPrefix(cookie.Name, "SessionID_") {
+			c.loggedIn = true
+		}
+	}
 	if err != nil {
 		return Fail("auth", "login proof rejected; no retries attempted")
 	}
+	// The router may have allocated a session even if proof verification below fails.
+	c.loggedIn = true
 	m, err = object(v)
 	if err != nil {
 		return err
@@ -242,6 +252,36 @@ func (c *Client) Login(ctx context.Context, password string) error {
 		return Fail("auth", "RSA public key signature verification failed")
 	}
 	return nil
+}
+
+// Logout releases only this client's session. It makes at most one attempt and
+// discards local session state even if the router cannot confirm the logout.
+// Clients are intended for sequential use, not concurrent requests.
+func (c *Client) Logout(ctx context.Context) error {
+	defer c.http.CloseIdleConnections()
+	if !c.loggedIn {
+		return nil
+	}
+	c.loggedIn = false
+	defer func() {
+		c.csrf = map[string]string{}
+		c.http.Jar, _ = cookiejar.New(nil)
+	}()
+	// Matches the firmware UI's commonPost({name: 'user_logout', writeOnly: true}).
+	v, err := c.json(ctx, "POST", "/api/system/user_logout", map[string]any{"csrf": c.csrf})
+	if err != nil {
+		return err
+	}
+	m, err := object(v)
+	if err != nil {
+		return err
+	}
+	for _, key := range []string{"err", "errcode"} {
+		if code, ok := m[key]; ok && safeCode(code) == "0" {
+			return nil
+		}
+	}
+	return Fail("api", "logout response missing success code")
 }
 
 func derive(password string, salt []byte, iterations int, first, final string) ([]byte, []byte, []byte, error) {
