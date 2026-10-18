@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/RasmusLauritsen/huawei-mesh3-cli/compare/v0.2.3...v0.3.0) (2026-10-18)
+
+
+### Features
+
+* prettify text command output with aligned tables ([#39](https://github.com/RasmusLauritsen/huawei-mesh3-cli/issues/39)) ([09a5f16](https://github.com/RasmusLauritsen/huawei-mesh3-cli/commit/09a5f162623266b4a953310100b7f8013401260c))
+
 ## [0.2.3](https://github.com/RasmusLauritsen/huawei-mesh3-cli/compare/v0.2.2...v0.2.3) (2026-10-18)
 
 
