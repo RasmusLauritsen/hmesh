@@ -1,4 +1,4 @@
-module github.com/RasmusLauritsen/huawei-mesh3-cli
+module github.com/RasmusLauritsen/hmesh
 
 go 1.26.0
 

@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
+	"github.com/RasmusLauritsen/hmesh/internal/router"
 )
 
 type config struct {

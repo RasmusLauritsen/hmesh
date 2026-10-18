@@ -11,7 +11,7 @@ import (
 	"text/tabwriter"
 	"unicode"
 
-	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
+	"github.com/RasmusLauritsen/hmesh/internal/router"
 )
 
 // printText normalizes structs as well as API responses, then renders every

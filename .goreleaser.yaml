@@ -19,7 +19,7 @@ builds:
       - -trimpath
       - -mod=readonly
     ldflags:
-      - -s -w -X github.com/RasmusLauritsen/huawei-mesh3-cli/internal/cli.Version={{ .Version }}
+      - -s -w -X github.com/RasmusLauritsen/hmesh/internal/cli.Version={{ .Version }}
 
 archives:
   - id: hmesh

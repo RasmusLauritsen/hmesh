@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-repo='RasmusLauritsen/huawei-mesh3-cli'
+repo='RasmusLauritsen/hmesh'
 install_dir="${HMESH_INSTALL_DIR:-$HOME/.local/bin}"
 
 fail() { printf 'Error: %s\n' "$*" >&2; exit 1; }
