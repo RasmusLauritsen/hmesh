@@ -163,10 +163,13 @@ func (a *app) closeClient(c *router.Client) {
 
 func (a *app) print(v any) error {
 	v = router.Redact(v)
-	e := json.NewEncoder(a.out)
 	if a.output == "text" {
-		e.SetIndent("", "  ")
+		if err := printText(a.out, v); err != nil {
+			return router.Fail("usage", "cannot write command output")
+		}
+		return nil
 	}
+	e := json.NewEncoder(a.out)
 	if err := e.Encode(v); err != nil {
 		return router.Fail("usage", "cannot write command output")
 	}
@@ -329,6 +332,9 @@ func (a *app) mutate(operation, mac, ip string, enabled *bool) error {
 	return a.print(p)
 }
 func (a *app) printPlan(p *router.Plan) error {
+	if a.output == "text" {
+		return printText(a.errOut, router.Redact(p))
+	}
 	b, err := json.MarshalIndent(p, "", "  ")
 	if err != nil {
 		return err
