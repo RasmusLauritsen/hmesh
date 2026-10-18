@@ -2,7 +2,7 @@ package cli
 
 import (
 	"charm.land/huh/v2"
-	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
+	"github.com/RasmusLauritsen/hmesh/internal/router"
 )
 
 func (a *app) menu() error {

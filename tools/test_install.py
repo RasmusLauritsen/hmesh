@@ -48,7 +48,7 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 case "$url" in
-  */latest) printf 'https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases/tag/v1.2.3' ;;
+  */latest) printf 'https://github.com/RasmusLauritsen/hmesh/releases/tag/v1.2.3' ;;
   *) cp "$FIXTURES/${url##*/}" "$dest" ;;
 esac''')
 

@@ -17,27 +17,35 @@ Based on API discovery on a two-unit installation running firmware `2.0.0.512`, 
 Install the latest release to `~/.local/bin`, with no sudo required:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/RasmusLauritsen/huawei-mesh3-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/RasmusLauritsen/hmesh/main/install.sh | bash
 ```
 
 This executes a downloaded script; [review it first](install.sh) if preferred. The installer detects AMD64/ARM64, verifies the release checksum, and replaces any existing `hmesh` in the install directory. Set `HMESH_INSTALL_DIR` to choose another directory. Checksums detect corruption, not a compromised publisher.
 
 The installer uses authenticated GitHub CLI downloads when available; otherwise it uses public HTTPS downloads.
 
+### Install with mise
+
+With [mise](https://mise.jdx.dev/) installed, use its GitHub backend to install the latest release globally:
+
+```bash
+mise use -g github:RasmusLauritsen/hmesh@latest
+```
+
 ### Download a release
 
-Download a Linux archive from the [latest release](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases/latest): choose `linux_amd64.tar.gz` for Intel/AMD or `linux_arm64.tar.gz` for ARM64.
+Download a Linux archive from the [latest release](https://github.com/RasmusLauritsen/hmesh/releases/latest): choose `linux_amd64.tar.gz` for Intel/AMD or `linux_arm64.tar.gz` for ARM64.
 
 Or use the [GitHub CLI](https://cli.github.com/) to download the latest Linux AMD64 release without specifying a version:
 
 ```bash
-gh release download --repo RasmusLauritsen/huawei-mesh3-cli \
+gh release download --repo RasmusLauritsen/hmesh \
   --pattern 'hmesh_*_linux_amd64.tar.gz' --pattern checksums.txt
 ```
 
 For ARM64, replace `linux_amd64` with `linux_arm64`. Verify the archive against the release's `checksums.txt`, extract it, and put `hmesh` on your PATH.
 
-macOS and Windows builds are also available on the [release page](https://github.com/RasmusLauritsen/huawei-mesh3-cli/releases/latest).
+macOS and Windows builds are also available on the [release page](https://github.com/RasmusLauritsen/hmesh/releases/latest).
 
 ## Connect
 
@@ -120,7 +128,7 @@ Use explicit subcommands with `--non-interactive --output json`, plus `--yes` fo
 
 - Successful data commands emit one compact JSON value on stdout. Errors go to stderr, as a JSON error envelope with `--output json`. Help/version remain plain text.
 - Mutation results include `operation`, `action`, `reservation` (when present), `dry_run`, and `verified`. Dry-runs are unverified; successful applies and verified no-ops are verified. An uncertain write produces no success output.
-- Known credential/session fields are filtered, but output still contains private device and network data. See [security guidance](https://github.com/RasmusLauritsen/huawei-mesh3-cli/blob/main/SECURITY.md) before sharing it.
+- Known credential/session fields are filtered, but output still contains private device and network data. See [security guidance](https://github.com/RasmusLauritsen/hmesh/blob/main/SECURITY.md) before sharing it.
 
 | Exit code | Meaning |
 |---|---|

@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"charm.land/huh/v2"
-	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
+	"github.com/RasmusLauritsen/hmesh/internal/router"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 )

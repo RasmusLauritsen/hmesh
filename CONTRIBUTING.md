@@ -7,8 +7,8 @@ For CLI usage and API references, see [README.md](README.md).
 Requires Go 1.26 or newer.
 
 ```bash
-git clone https://github.com/RasmusLauritsen/huawei-mesh3-cli.git
-cd huawei-mesh3-cli
+git clone https://github.com/RasmusLauritsen/hmesh.git
+cd hmesh
 go build -o bin/hmesh .
 ./bin/hmesh --help
 ```
@@ -20,7 +20,7 @@ mkdir -p "$HOME/.local/bin"
 go build -o "$HOME/.local/bin/hmesh" .
 ```
 
-Add `$HOME/.local/bin` to PATH if necessary. Plain `go install .` uses the module name (`huawei-mesh3-cli`), not `hmesh`.
+Add `$HOME/.local/bin` to PATH if necessary. Alternatively, `go install .` installs `hmesh` into `$GOBIN` (or `$HOME/go/bin` by default).
 
 ## Tests
 
@@ -47,7 +47,7 @@ If you already have hooks configured, integrate rather than replace them. See [S
 
 ## Dependency updates
 
-Dependency updates use the [hosted Renovate GitHub App](https://github.com/apps/renovate), configured in [`renovate.json`](renovate.json). To activate it, install the app for `RasmusLauritsen/huawei-mesh3-cli` and merge the configuration into the default branch. No self-hosted workflow or repository token is needed.
+Dependency updates use the [hosted Renovate GitHub App](https://github.com/apps/renovate), configured in [`renovate.json`](renovate.json). To activate it, install the app for `RasmusLauritsen/hmesh` and merge the configuration into the default branch. No self-hosted workflow or repository token is needed.
 
 Renovate updates Go modules (including indirect dependencies) and GitHub Actions. Minor, patch, and pin/digest updates automerge after CI passes, including pre-1.0 updates, which can contain breaking changes. Major updates remain open for manual review without a separate Dependency Dashboard approval step.
 
