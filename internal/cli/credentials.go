@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
+	"charm.land/huh/v2"
 	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
-	"github.com/charmbracelet/huh"
 	"github.com/zalando/go-keyring"
 )
 

@@ -13,8 +13,8 @@ import (
 	"syscall"
 	"time"
 
+	"charm.land/huh/v2"
 	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
-	"github.com/charmbracelet/huh"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 )
