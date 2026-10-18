@@ -1,8 +1,8 @@
 package cli
 
 import (
+	"charm.land/huh/v2"
 	"github.com/RasmusLauritsen/huawei-mesh3-cli/internal/router"
-	"github.com/charmbracelet/huh"
 )
 
 func (a *app) menu() error {
