@@ -55,7 +55,7 @@ Renovate performs PR merges itself (`platformAutomerge: false`), so GitHub's **A
 
 ## Releases
 
-Release Please maintains a release PR with a version bump and `CHANGELOG.md` as changes land on `main`. Merge that PR when ready to publish; it creates the `v`-prefixed tag and GitHub release, and the tag push triggers `.github/workflows/release.yml` to build and upload binaries. Release PRs are not automerged.
+Release Please maintains a release PR with a version bump and `CHANGELOG.md` as changes land on `main`. The workflow enables automatic squash-merge for these release PRs: required tests and secret scanning must pass on an up-to-date branch, but no manual approval is needed. Merging creates the `v`-prefixed tag and GitHub release, and the tag push triggers `.github/workflows/release.yml` to build and upload binaries. Keep the repository's **Allow auto-merge** setting enabled for release PRs (Renovate still manages its own merges).
 
 Use Conventional Commit titles when squash-merging PRs: `fix:` produces a patch bump (`v0.1.0` → `v0.1.1`), `feat:` a minor bump (`v0.1.0` → `v0.2.0`). Before v1, breaking changes (`feat!:` or a `BREAKING CHANGE:` footer) also bump the minor version. Renovate uses `fix(deps):` so dependency updates trigger patch releases. Multiple changes are batched, with the largest applicable bump winning; `chore:` and `docs:` alone do not trigger releases.
 
