@@ -3,7 +3,7 @@ module github.com/RasmusLauritsen/huawei-mesh3-cli
 go 1.26.0
 
 require (
-	github.com/charmbracelet/huh v1.0.0
+	github.com/charmbracelet/huh/v2 v2.0.3
 	github.com/spf13/cobra v1.10.2
 	github.com/zalando/go-keyring v0.2.8
 	golang.org/x/term v0.47.0
