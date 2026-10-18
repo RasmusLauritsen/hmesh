@@ -47,6 +47,13 @@ paths = ['''^(?:internal/router/client_test\.go|internal/cli/integration_test\.g
 regexTarget = "secret"
 regexes = ['''^(?:p1|p2|t1|t2|p|t|never-output|secret|param-one|param-two|token-one|token-two)$''']
 
+[[rules.allowlists]]
+description = "Exact synthetic logout CSRF fixture"
+condition = "AND"
+paths = ['''^internal/router/logout_test\.go$''']
+regexTarget = "secret"
+regexes = ['''^(?:latest-param|latest-token)$''']
+
 [[rules]]
 id = "router-csrf-html"
 description = "Captured router CSRF meta tag"
