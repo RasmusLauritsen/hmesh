@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.0...v0.3.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* align repository references with hmesh name ([#41](https://github.com/RasmusLauritsen/hmesh/issues/41)) ([6a5db14](https://github.com/RasmusLauritsen/hmesh/commit/6a5db149dd753aabd5f70a9bacf8259aeaa63ba5))
+
 ## [0.3.0](https://github.com/RasmusLauritsen/hmesh/compare/v0.2.3...v0.3.0) (2026-10-18)
 
 
