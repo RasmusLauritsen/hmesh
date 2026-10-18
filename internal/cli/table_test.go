@@ -8,6 +8,29 @@ import (
 	"testing"
 )
 
+func TestTextOutput(t *testing.T) {
+	var out bytes.Buffer
+	a := &app{out: &out, output: "text"}
+	value := map[string]any{"status": "online", "devices": []any{map[string]any{"name": "test\n\t\x1b", "online": true}}, "empty": []any{}}
+	if err := a.print(value); err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"devices[1].name", "test???", "devices[1].online", "true", "empty", "(none)", "status", "online"} {
+		if !strings.Contains(out.String(), want) {
+			t.Fatalf("missing %q in %q", want, out.String())
+		}
+	}
+	if strings.ContainsAny(out.String(), "\t\x1b") {
+		t.Fatalf("unsafe or unexpanded table output: %q", out.String())
+	}
+}
+
+func TestTextOutputWriteFailure(t *testing.T) {
+	if err := printText(brokenWriter{}, map[string]any{"status": "online"}); err == nil {
+		t.Fatal("expected write failure")
+	}
+}
+
 func TestReservationTable(t *testing.T) {
 	value := []any{
 		map[string]any{"ID": "hidden-id", "Yiaddr": "192.168.3.100", "Chaddr": "02:00:00:00:00:02", "Enable": false},
