@@ -139,9 +139,26 @@ func (a *app) connect() (*router.Client, error) {
 		return nil, err
 	}
 	if err = c.Login(a.ctx, password); err != nil {
+		a.closeClient(c)
 		return nil, err
 	}
 	return c, nil
+}
+
+func (a *app) closeClient(c *router.Client) {
+	// Command cancellation must not cancel session cleanup as well. Keep the
+	// independent attempt short, including when the router is unreachable.
+	timeout := min(a.timeout, 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	if err := c.Logout(ctx); err != nil {
+		const message = "router logout could not be confirmed; the session may remain until it expires"
+		if a.output == "json" {
+			_ = json.NewEncoder(a.errOut).Encode(map[string]any{"warning": map[string]string{"kind": "session_cleanup", "message": message}})
+		} else {
+			fmt.Fprintln(a.errOut, "Warning:", message)
+		}
+	}
 }
 
 func (a *app) print(v any) error {
@@ -161,6 +178,7 @@ func (a *app) read(name string) error {
 	if err != nil {
 		return err
 	}
+	defer a.closeClient(c)
 	v, err := c.Get(a.ctx, name)
 	if err != nil {
 		return err
@@ -265,6 +283,7 @@ func (a *app) login() error {
 	if err != nil {
 		return err
 	}
+	defer a.closeClient(c)
 	if err = c.Login(a.ctx, password); err != nil {
 		return err
 	}
@@ -286,6 +305,7 @@ func (a *app) mutate(operation, mac, ip string, enabled *bool) error {
 	if err != nil {
 		return err
 	}
+	defer a.closeClient(c)
 	p, err := c.PlanReservation(a.ctx, operation, mac, ip, enabled)
 	if err != nil {
 		return err
@@ -332,6 +352,7 @@ func (a *app) dns() error {
 	if err != nil {
 		return err
 	}
+	defer a.closeClient(c)
 	wan, err := c.Get(a.ctx, "wan")
 	if err != nil {
 		return err

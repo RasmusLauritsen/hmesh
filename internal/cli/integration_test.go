@@ -2,6 +2,7 @@ package cli
 
 import (
 	"bytes"
+	"context"
 	"crypto/hmac"
 	"crypto/pbkdf2"
 	"crypto/sha256"
@@ -20,6 +21,9 @@ import (
 func TestCLIEndToEnd(t *testing.T) {
 	var first, final string
 	posts := 0
+	logins, logouts := 0, 0
+	readFailure, logoutFailure := false, false
+	var cancelRead context.CancelFunc
 	items := []map[string]any{}
 	salt, _ := hex.DecodeString("00112233445566778899aabbccddeeff")
 	hash := func(key, msg []byte) []byte { h := hmac.New(sha256.New, key); h.Write(msg); return h.Sum(nil) }
@@ -34,12 +38,34 @@ func TestCLIEndToEnd(t *testing.T) {
 			final = first + strings.Repeat("cd", 32)
 			json.NewEncoder(w).Encode(map[string]any{"err": 0, "salt": hex.EncodeToString(salt), "iterations": 1000, "servernonce": final, "csrf_param": "p2", "csrf_token": "t2"})
 		case "/api/system/user_login_proof":
+			logins++
+			http.SetCookie(w, &http.Cookie{Name: "SessionID_R3", Value: "fake-session", Path: "/", Secure: true})
 			salted, _ := pbkdf2.Key(sha256.New, "fake-password", salt, 1000, 32)
 			server := hash([]byte("Server Key"), salted)
 			pub, _ := hex.DecodeString("a1b2c3d4")
 			json.NewEncoder(w).Encode(map[string]any{"err": 0, "rsan": "a1b2c3d4", "serversignature": hex.EncodeToString(hash([]byte(first+","+final+","+final), server)), "rsapubkeysignature": hex.EncodeToString(hash(server, pub))})
 		case "/api/system/deviceinfo":
+			if cancelRead != nil {
+				cancelRead()
+			}
+			if readFailure {
+				http.Error(w, "fake read failure", http.StatusInternalServerError)
+				return
+			}
 			w.Write([]byte(`{"SoftwareVersion":"test","csrf_token":"never-output"}`))
+		case "/api/system/user_logout":
+			logouts++
+			if r.Method != http.MethodPost {
+				t.Error("logout must POST")
+			}
+			if cookie, err := r.Cookie("SessionID_R3"); err != nil || cookie.Value != "fake-session" {
+				t.Error("logout missing session cookie")
+			}
+			if logoutFailure {
+				http.Error(w, "fake logout failure", http.StatusInternalServerError)
+				return
+			}
+			w.Write([]byte(`{"errcode":0}`))
 		case "/api/ntwk/lan_server":
 			w.Write([]byte(`{"ServerEnable":true,"MinIP":"192.168.3.2","MaxIP":"192.168.3.254"}`))
 		case "/api/ntwk/lan_all":
@@ -88,6 +114,9 @@ func TestCLIEndToEnd(t *testing.T) {
 		var out, errOut bytes.Buffer
 		base := []string{"--config", configFile, "--router", s.URL, "--insecure", "--password-stdin", "--non-interactive", "--output", "json"}
 		code := Run(append(base, args...), strings.NewReader("fake-password\n"), &out, &errOut)
+		if logins != logouts {
+			t.Fatalf("session leaked: %d logins, %d logouts", logins, logouts)
+		}
 		if code != 0 || errOut.Len() != 0 {
 			t.Fatalf("%v: exit=%d err=%s", args, code, errOut.String())
 		}
@@ -137,5 +166,41 @@ func TestCLIEndToEnd(t *testing.T) {
 	run("dhcp", "reservations", "delete", "--mac", "02:00:00:00:00:42", "--yes")
 	if len(items) != 0 || posts != 3 {
 		t.Fatal("CLI delete failed")
+	}
+	// Validation failures after connecting must also release the session without
+	// masking the original command error or sending a configuration write.
+	var out, errOut bytes.Buffer
+	code := Run([]string{"--config", configFile, "--router", s.URL, "--insecure", "--password-stdin", "--non-interactive", "--output", "json", "dhcp", "reservations", "create", "--mac", "invalid", "--ip", "192.168.3.100", "--yes"}, strings.NewReader("fake-password\n"), &out, &errOut)
+	if code != 2 || logins != logouts || posts != 3 {
+		t.Fatalf("failed command leaked session or changed result: code=%d logins=%d logouts=%d posts=%d", code, logins, logouts, posts)
+	}
+	for _, failRead := range []bool{false, true} {
+		readFailure, logoutFailure = failRead, true
+		out.Reset()
+		errOut.Reset()
+		code := Run([]string{"--config", configFile, "--router", s.URL, "--insecure", "--password-stdin", "--non-interactive", "--output", "json", "status"}, strings.NewReader("fake-password\n"), &out, &errOut)
+		wantCode := 0
+		if failRead {
+			wantCode = 5
+		}
+		if code != wantCode || logins != logouts || !strings.Contains(errOut.String(), `"session_cleanup"`) {
+			t.Fatalf("logout failure masked result or lacked warning: code=%d stderr=%q", code, errOut.String())
+		}
+		if !failRead && !json.Valid(out.Bytes()) {
+			t.Fatal("cleanup warning corrupted command JSON")
+		}
+	}
+	readFailure, logoutFailure = false, false
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	cancelRead = cancel
+	out.Reset()
+	errOut.Reset()
+	a := &app{ctx: ctx, in: strings.NewReader("fake-password\n"), out: &out, errOut: &errOut}
+	root := a.command()
+	root.SetArgs([]string{"--config", configFile, "--router", s.URL, "--insecure", "--password-stdin", "--non-interactive", "--output", "json", "status"})
+	_ = root.ExecuteContext(ctx)
+	if ctx.Err() == nil || logins != logouts || errOut.Len() != 0 {
+		t.Fatalf("cancellation prevented logout: logins=%d logouts=%d stderr=%q", logins, logouts, errOut.String())
 	}
 }
