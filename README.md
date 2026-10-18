@@ -89,7 +89,7 @@ Password files must be protected (`chmod 600` on Unix). Stdin/files accept one n
 | `hmesh dns show` | WAN IPv4, DHCP-advertised, and WAN IPv6 DNS |
 | `hmesh port-forward list` | Forwarding mappings, not separate protocol/port definitions |
 
-Add `--output json` for machine-readable output. Reservation lists default to an IP-sorted table; other reads default to indented JSON. DNS and port-forward commands are read-only; IPv6 LAN DHCP/RA DNS is not included.
+Add `--output json` for machine-readable output. Text results and change previews use aligned tables, with nested fields shown as paths. Reservation lists retain their IP-sorted table. DNS and port-forward commands are read-only; IPv6 LAN DHCP/RA DNS is not included.
 
 ### Manage DHCP reservations
 
