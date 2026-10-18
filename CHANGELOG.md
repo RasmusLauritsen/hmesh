@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/RasmusLauritsen/huawei-mesh3-cli/compare/v0.2.2...v0.2.3) (2026-10-18)
+
+
+### Bug Fixes
+
+* release router sessions after CLI commands ([#36](https://github.com/RasmusLauritsen/huawei-mesh3-cli/issues/36)) ([a5ce6d5](https://github.com/RasmusLauritsen/huawei-mesh3-cli/commit/a5ce6d5c63ed47bba9818f52cb1540902d3f0db1))
+
 ## [0.2.2](https://github.com/RasmusLauritsen/huawei-mesh3-cli/compare/v0.2.1...v0.2.2) (2026-10-18)
 
 
