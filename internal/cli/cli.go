@@ -208,7 +208,7 @@ func (a *app) command() *cobra.Command {
 	f.StringVar(&a.caFile, "ca-cert", "", "PEM CA/certificate bundle for TLS trust")
 	f.BoolVar(&a.insecure, "insecure", false, "Explicitly disable TLS certificate verification")
 	f.DurationVar(&a.timeout, "timeout", 20*time.Second, "Per-request timeout")
-	f.StringVar(&a.output, "output", "text", "Output format: text (DHCP list table; otherwise indented JSON) or json")
+	f.StringVar(&a.output, "output", "text", "Output format: text (aligned tables) or json")
 	f.BoolVar(&a.nonInteractive, "non-interactive", false, "Never display CLI prompts")
 	f.BoolVar(&a.passwordStdin, "password-stdin", false, "Read one password line from stdin")
 	f.StringVar(&a.passwordFile, "password-file", "", "Read password from a protected file")
