@@ -14,7 +14,7 @@
       "enabled": true
     },
     {
-      "description": "Automerge non-major updates after checks pass, including pre-1.0 versions",
+      "description": "Automerge non-major updates after checks pass, except pre-1.0 minor updates",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "pinDigest"],
       "automerge": true
     },
@@ -23,6 +23,13 @@
       "matchUpdateTypes": ["major"],
       "automerge": false,
       "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Review potentially breaking pre-1.0 minor updates manually",
+      "matchManagers": ["gomod"],
+      "matchCurrentVersion": "/^v?0\\./",
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
     }
   ]
 }

@@ -1,6 +1,6 @@
 module github.com/RasmusLauritsen/hmesh
 
-go 1.26.0
+go 1.26.10
 
 require (
 	charm.land/huh/v2 v2.0.3

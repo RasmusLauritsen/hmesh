@@ -4,7 +4,7 @@ For CLI usage and API references, see [README.md](README.md).
 
 ## Build from source
 
-Requires Go 1.26 or newer.
+Requires Go 1.26.10 or newer (including standard-library security fixes).
 
 ```bash
 git clone https://github.com/RasmusLauritsen/hmesh.git
@@ -31,7 +31,7 @@ python3 -m unittest discover -s tools/reference -p 'test_*.py'
 python3 -m unittest discover -s tools -p 'test_install.py'
 ```
 
-Automated tests run on Linux. Cross-compilation does not establish that terminal and OS-keyring behavior works on every target.
+Automated tests, including the offline installer tests, run on Linux. A separate workflow runs `govulncheck` on pushes, pull requests, and weekly to catch newly disclosed vulnerabilities. Cross-compilation does not establish that terminal and OS-keyring behavior works on every target.
 
 The CLI's authentication, stdin password input, status/device/reservation reads, and reservation-create dry-run were smoke-tested against the discovery router without configuration writes. CLI writes and reservation updates have not been live-tested. See [write API evidence](docs/WRITE_API.md) before testing changes on hardware; API readback alone does not prove DHCP lease acquisition.
 
@@ -49,7 +49,7 @@ If you already have hooks configured, integrate rather than replace them. See [S
 
 Dependency updates use the [hosted Renovate GitHub App](https://github.com/apps/renovate), configured in [`renovate.json`](renovate.json). To activate it, install the app for `RasmusLauritsen/hmesh` and merge the configuration into the default branch. No self-hosted workflow or repository token is needed.
 
-Renovate updates Go modules (including indirect dependencies) and GitHub Actions. Minor, patch, and pin/digest updates automerge after CI passes, including pre-1.0 updates, which can contain breaking changes. Major updates remain open for manual review without a separate Dependency Dashboard approval step.
+Renovate updates Go modules (including indirect dependencies) and GitHub Actions. Minor, patch, and pin/digest updates automerge after CI passes, except pre-1.0 Go module minor updates, which require manual review because they can contain breaking changes. Major updates also remain open for manual review without a separate Dependency Dashboard approval step.
 
 Renovate performs PR merges itself (`platformAutomerge: false`), so GitHub's **Allow auto-merge** setting is not required. Keep CI enabled and do not enable `ignoreTests`. Branch protection requiring review on every PR will also block non-major automerges; the app still needs permission to merge under the repository's rules.
 
