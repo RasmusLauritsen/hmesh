@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.1...v0.3.2) (2026-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies and secure Go build tooling ([#49](https://github.com/RasmusLauritsen/hmesh/issues/49)) ([4509300](https://github.com/RasmusLauritsen/hmesh/commit/4509300b4ddc433f41779c8ce9f13152ad9ea30f))
+
 ## [0.3.1](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.0...v0.3.1) (2026-10-18)
 
 
