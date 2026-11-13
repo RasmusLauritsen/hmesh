@@ -1,12 +1,12 @@
 module github.com/RasmusLauritsen/hmesh
 
-go 1.26.10
+go 1.26.11
 
 require (
 	charm.land/huh/v2 v2.0.3
 	github.com/spf13/cobra v1.10.2
 	github.com/zalando/go-keyring v0.2.8
-	golang.org/x/term v0.47.0
+	golang.org/x/term v0.48.0
 )
 
 require (
@@ -37,5 +37,5 @@ require (
 	github.com/spf13/pflag v1.1.0 // indirect
 	github.com/xo/terminfo v1.3.1 // indirect
 	golang.org/x/sync v0.25.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
 )
