@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.2...v0.3.3) (2026-11-13)
+
+
+### Bug Fixes
+
+* **deps:** update module golang.org/x/term to v0.48.0 ([#55](https://github.com/RasmusLauritsen/hmesh/issues/55)) ([cb01355](https://github.com/RasmusLauritsen/hmesh/commit/cb0135505bf56daf79382aff59103cf0e06c3175))
+
 ## [0.3.2](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.1...v0.3.2) (2026-11-05)
 
 
