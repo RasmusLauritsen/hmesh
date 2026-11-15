@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.3...v0.4.0) (2026-11-15)
+
+
+### Features
+
+* **cli:** show active devices by default ([#59](https://github.com/RasmusLauritsen/hmesh/issues/59)) ([888444f](https://github.com/RasmusLauritsen/hmesh/commit/888444f4c9ae415c23a133c2061b6c3b91b079ee))
+
 ## [0.3.3](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.2...v0.3.3) (2026-11-13)
 
 
