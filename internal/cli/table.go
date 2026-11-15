@@ -135,6 +135,68 @@ func (a *app) printReservations(value any) error {
 	return nil
 }
 
+// printDevices keeps the human-readable device inventory focused on fields
+// useful for identifying a client and checking whether it is connected.
+func (a *app) printDevices(value any) error {
+	items, ok := value.([]any)
+	if !ok {
+		return router.Fail("api", "expected a device array from router")
+	}
+	type row struct{ name, ip, mac, connection, active string }
+	rows := make([]row, 0, len(items))
+	for _, item := range items {
+		m, ok := item.(map[string]any)
+		if !ok {
+			return router.Fail("api", "expected device objects from router")
+		}
+		name, _ := m["ActualName"].(string)
+		if name == "" {
+			name, _ = m["HostName"].(string)
+		}
+		if name == "" {
+			name, _ = m["domain"].(string)
+		}
+		if strings.HasPrefix(name, "InternetGatewayDevice.") {
+			name = "<no name>"
+		}
+		active := "-"
+		if state, ok := m["Active"].(bool); ok {
+			active = "no"
+			if state {
+				active = "yes"
+			}
+		}
+		rows = append(rows, row{tableCell(name), tableCell(stringField(m, "IPAddress")), tableCell(stringField(m, "MACAddress")), tableCell(stringField(m, "InterfaceType")), active})
+	}
+	var out bytes.Buffer
+	if len(rows) == 0 {
+		fmt.Fprintln(&out, "No devices found.")
+	} else {
+		table := tabwriter.NewWriter(&out, 0, 4, 2, ' ', 0)
+		fmt.Fprintln(table, "NAME\tIP ADDRESS\tMAC ADDRESS\tCONNECTION\tACTIVE")
+		for _, row := range rows {
+			fmt.Fprintf(table, "%s\t%s\t%s\t%s\t%s\n", row.name, row.ip, row.mac, row.connection, row.active)
+		}
+		if err := table.Flush(); err != nil {
+			return router.Fail("usage", "cannot format device table")
+		}
+		noun := "devices"
+		if len(rows) == 1 {
+			noun = "device"
+		}
+		fmt.Fprintf(&out, "\n%d %s\n", len(rows), noun)
+	}
+	if _, err := a.out.Write(out.Bytes()); err != nil {
+		return router.Fail("usage", "cannot write command output")
+	}
+	return nil
+}
+
+func stringField(m map[string]any, key string) string {
+	value, _ := m[key].(string)
+	return value
+}
+
 // Router data must not inject terminal controls, new rows, or tabwriter escapes.
 func tableCell(value string) string {
 	if value == "" {

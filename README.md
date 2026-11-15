@@ -91,7 +91,7 @@ Password files must be protected (`chmod 600` on Unix). Stdin/files accept one n
 | Command | Purpose |
 |---|---|
 | `hmesh status` | Router hardware and firmware |
-| `hmesh devices list` | Connected and known devices |
+| `hmesh devices list` | Active devices; add `--all` to include inactive and historical devices |
 | `hmesh mesh topology` | Mesh topology |
 | `hmesh dhcp list` | DHCP reservations; alias for `dhcp reservations list` |
 | `hmesh dns show` | WAN IPv4, DHCP-advertised, and WAN IPv6 DNS |
