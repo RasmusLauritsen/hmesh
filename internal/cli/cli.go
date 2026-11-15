@@ -28,7 +28,7 @@ type app struct {
 	ctx                                                                      context.Context
 	settings                                                                 config
 	configFile, routerURL, username, caFile, output, passwordFile, bwsSecret string
-	insecure, passwordStdin, nonInteractive, yes, dryRun                     bool
+	insecure, passwordStdin, nonInteractive, yes, dryRun, devicesAll         bool
 	timeout                                                                  time.Duration
 }
 
@@ -186,8 +186,28 @@ func (a *app) read(name string) error {
 	if err != nil {
 		return err
 	}
+	if name == "devices" && !a.devicesAll {
+		items, ok := v.([]any)
+		if !ok {
+			return router.Fail("api", "expected a device array from router")
+		}
+		active := make([]any, 0, len(items))
+		for _, item := range items {
+			device, ok := item.(map[string]any)
+			if !ok {
+				return router.Fail("api", "expected device objects from router")
+			}
+			if device["Active"] == true {
+				active = append(active, item)
+			}
+		}
+		v = active
+	}
 	if name == "reservations" && a.output == "text" {
 		return a.printReservations(v)
+	}
+	if name == "devices" && a.output == "text" {
+		return a.printDevices(v)
 	}
 	return a.print(v)
 }
@@ -216,8 +236,12 @@ func (a *app) command() *cobra.Command {
 	f.BoolVar(&a.yes, "yes", false, "Approve a planned configuration write without prompting")
 	f.BoolVar(&a.dryRun, "dry-run", false, "Plan a reservation change without sending a configuration POST")
 	root.AddCommand(&cobra.Command{Use: "status", Short: "Show router hardware/firmware status", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error { return a.read("status") }})
+	devices := &cobra.Command{Use: "devices", Short: "List connected/known devices"}
+	deviceList := &cobra.Command{Use: "list", Short: "List active devices", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error { return a.read("devices") }}
+	deviceList.Flags().BoolVar(&a.devicesAll, "all", false, "Include inactive and historical devices")
+	devices.AddCommand(deviceList)
+	root.AddCommand(devices)
 	for _, spec := range []struct{ group, verb, name, description string }{
-		{"devices", "list", "devices", "List connected/known devices"},
 		{"mesh", "topology", "topology", "Show mesh topology"},
 		{"port-forward", "list", "port-forward", "List forwarding mappings (read-only; not full port definitions)"},
 	} {
