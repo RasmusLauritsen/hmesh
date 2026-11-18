@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/RasmusLauritsen/hmesh/compare/v0.4.0...v0.4.1) (2026-11-18)
+
+
+### Bug Fixes
+
+* **deps:** update terminal ANSI library and vulnerability checker ([#63](https://github.com/RasmusLauritsen/hmesh/issues/63)) ([70b7047](https://github.com/RasmusLauritsen/hmesh/commit/70b70479e9d085460d5184db915ae777ac69553c))
+
 ## [0.4.0](https://github.com/RasmusLauritsen/hmesh/compare/v0.3.3...v0.4.0) (2026-11-15)
 
 
